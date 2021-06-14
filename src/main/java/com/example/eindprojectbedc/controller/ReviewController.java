@@ -1,37 +1,47 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.Service.ReviewServer;
-import com.example.eindprojectbedc.exception.RecourceNotFoundException;
+import com.example.eindprojectbedc.Service.ReviewService;
+import com.example.eindprojectbedc.controller.dto.ReviewDto;
+import com.example.eindprojectbedc.controller.dto.ReviewInputDto;
 import com.example.eindprojectbedc.model.Review;
-import com.example.eindprojectbedc.repository.ReviewRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = {"*"})
 @RestController
 @RequestMapping("/api/v1/reviews")
 public class ReviewController {
 
+    private final ReviewService reviewService;
+
     @Autowired
-    private ReviewServer reviewServer;
-
-    @GetMapping("/get_reviews")
-    public ResponseEntity<Object> getReviews(){
-        return ResponseEntity.ok().body(reviewServer.getReview());
+    public ReviewController(ReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
-    @PostMapping("/post_reviews")
-    public ResponseEntity<Review> createReview(@RequestBody Review review) {
-        return ResponseEntity.ok().body(reviewServer.createReview(review));
+    @GetMapping
+    public List<ReviewDto> getAllReviews() {
+        var dtos = new ArrayList<ReviewDto>();
+        var allReviews = reviewService.getAllReviews();
+
+        for (Review review : allReviews) {
+            dtos.add(ReviewDto.fromReview(review));
+        }
+        return dtos;
     }
 
-    @DeleteMapping("/delete_tips/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteReview(@PathVariable Long id) {
-        return ResponseEntity.ok(reviewServer.deleteReview(id));
+    @GetMapping("/{id}")
+    public ReviewDto getReview(@PathVariable("id") Long id) {
+        var review = reviewService.getReview(id);
+        return ReviewDto.fromReview(review);
     }
 
+    @PostMapping
+    public ReviewDto saveReview(@RequestBody ReviewInputDto dto) {
+        var review = reviewService.saveReview(dto.toReview());
+        return ReviewDto.fromReview(review);
+    }
 }

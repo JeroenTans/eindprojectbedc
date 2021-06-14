@@ -10,23 +10,17 @@ public class TipAmsterdam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
     @Lob
     private byte[] picturePath;
 
-    @Column
     private String address;
 
-    @Column
     private String explanation;
 
-    @Column
     private boolean isPrivateTip;
 
-    @Column
     private boolean isPublicTip;
 
-    @Column
     private boolean isStandardTip;
 
     public TipAmsterdam() {

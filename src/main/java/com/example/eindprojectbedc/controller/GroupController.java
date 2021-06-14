@@ -1,35 +1,48 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.Service.GroupServer;
+import com.example.eindprojectbedc.Service.GroupService;
+import com.example.eindprojectbedc.controller.dto.GroupDto;
+import com.example.eindprojectbedc.controller.dto.GroupInputDto;
 import com.example.eindprojectbedc.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @CrossOrigin(origins = {"*"})
 @RestController
-@RequestMapping("/api/v1/group_members")
+@RequestMapping("/api/v1/group")
 public class GroupController {
 
+    private final GroupService groupService;
+
     @Autowired
-    private GroupServer groupServer;
-
-    @GetMapping("/get_group_members")
-    public ResponseEntity<Object>getGroupMembers(){
-        return ResponseEntity.ok().body(groupServer.getGroup());
+    public GroupController(GroupService groupService) {
+        this.groupService = groupService;
     }
 
-    @PostMapping("/post_group_members")
-    public ResponseEntity<Group> createGroup(@RequestBody Group group){
-        return ResponseEntity.ok().body(groupServer.createGroup(group));
+    @GetMapping
+    public List<GroupDto> getWholeGroup() {
+        var dtos = new ArrayList<GroupDto>();
+        var wholeGroup = groupService.getWholeGroup();
+
+        for (Group group : wholeGroup) {
+            dtos.add(GroupDto.fromGroup(group));
+        }
+        return dtos;
     }
 
-    @DeleteMapping("/delete_group_members/{id}")
-    public ResponseEntity<Map<String, Boolean>> deleteGroupMember(@PathVariable Long id){
-        return ResponseEntity.ok(groupServer.deleteGroupMember(id));
+    @GetMapping("/{id}")
+    public GroupDto getGroup(@PathVariable("id") Long id) {
+        var group = groupService.getGroup(id);
+        return GroupDto.fromGroup(group);
+    }
+
+    @PostMapping
+    public GroupDto sageGroup(@RequestBody GroupInputDto dto) {
+        var group = groupService.saveGroup(dto.toGroup());
+        return GroupDto.fromGroup(group);
     }
 
 }

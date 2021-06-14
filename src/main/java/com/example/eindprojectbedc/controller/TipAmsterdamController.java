@@ -27,7 +27,6 @@ public class TipAmsterdamController {
         this.tipAmsterdamService = tipAmsterdamService;
     }
 
-    //fromTipAmsterdam niet?? Waar komt die vandaan??
     @GetMapping
     public List<TipAmsterdamDto> getAllTipsAmsterdam(){
         var dtos = new ArrayList<TipAmsterdamDto>();
