@@ -12,7 +12,6 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column
     private String emailAddress;
 
     public Group() {

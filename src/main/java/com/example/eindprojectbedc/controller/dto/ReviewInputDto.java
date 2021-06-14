@@ -17,5 +17,4 @@ public class ReviewInputDto {
         review.setBrokenHeart(brokenHeart);
         return review;
     }
-
 }

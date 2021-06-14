@@ -10,16 +10,12 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "adress")
     private String address;
 
-    @Column(name = "comment")
     private String comment;
 
-    @Column(name = "heart")
     private Boolean heart;
 
-    @Column(name = "broken_heart")
     private Boolean brokenHeart;
 
     public Review() {
