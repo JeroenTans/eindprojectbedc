@@ -1,5 +1,7 @@
 package com.example.eindprojectbedc.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 
 @Entity
@@ -10,8 +12,7 @@ public class TipAmsterdam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Lob
-    private byte[] picturePath;
+    private String picturePath;
 
     private String address;
 
@@ -26,7 +27,7 @@ public class TipAmsterdam {
     public TipAmsterdam() {
     }
 
-    public TipAmsterdam(String address, String explanation, byte[] picturePath, boolean isStandardTip, boolean isPublicTip, boolean isPrivateTip) {
+    public TipAmsterdam(String address, String explanation, String picturePath, boolean isStandardTip, boolean isPublicTip, boolean isPrivateTip) {
         this.address = address;
         this.explanation = explanation;
         this.picturePath = picturePath;
@@ -53,10 +54,10 @@ public class TipAmsterdam {
     public void setPrivateTip(boolean privateTip) {
         isPrivateTip = privateTip;
     }
-    public byte[] getPicturePath() {
+    public String getPicturePath() {
         return picturePath;
     }
-    public void setPicturePath(byte[] picturePath) {
+    public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
     }
     public String getExplanation() {

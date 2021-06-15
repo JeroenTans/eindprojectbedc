@@ -40,7 +40,7 @@ public class GroupController {
     }
 
     @PostMapping
-    public GroupDto sageGroup(@RequestBody GroupInputDto dto) {
+    public GroupDto saveGroup(@RequestBody GroupInputDto dto) {
         var group = groupService.saveGroup(dto.toGroup());
         return GroupDto.fromGroup(group);
     }

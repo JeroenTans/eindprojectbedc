@@ -16,7 +16,11 @@ public interface TipAmsterdamService {
 
     void deleteTipAmsterdam(Long id);
 
-    void uploadPicturePath(Long id, MultipartFile picturePath) throws IOException;
+    void addTipAmsterdam(TipAmsterdam tipAmsterdam);
 
-    byte[] getPicturePath(Long id);
+//    void uploadPicturePath(Long id, MultipartFile picturePath) throws IOException;
+
+//    byte[] getPicturePath(Long id);
+
+
 }

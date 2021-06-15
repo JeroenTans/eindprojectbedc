@@ -1,17 +1,17 @@
 package com.example.eindprojectbedc.controller;
 
+import com.example.eindprojectbedc.Service.FileStorageServiceImp;
 import com.example.eindprojectbedc.Service.TipAmsterdamService;
 import com.example.eindprojectbedc.controller.dto.TipAmsterdamDto;
 import com.example.eindprojectbedc.controller.dto.TipAmsterdamInputDto;
-import com.example.eindprojectbedc.exception.BadRequestExeption;
+import com.example.eindprojectbedc.exception.BadRequestException;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,15 +20,19 @@ import java.util.List;
 @RequestMapping("/api/v1/tips")
 public class TipAmsterdamController {
 
-    private final TipAmsterdamService tipAmsterdamService;
-
     @Autowired
-    public TipAmsterdamController(TipAmsterdamService tipAmsterdamService) {
-        this.tipAmsterdamService = tipAmsterdamService;
-    }
+    TipAmsterdamService tipAmsterdamService;
+
+    FileStorageServiceImp fileStorageServiceImp;
+
+//    @Autowired
+//    public TipAmsterdamController(TipAmsterdamService tipAmsterdamService, FileStorageServiceImp fileStorageServiceImp) {
+//        this.tipAmsterdamService = tipAmsterdamService;
+//        this.fileStorageServiceImp = fileStorageServiceImp;
+//    }
 
     @GetMapping
-    public List<TipAmsterdamDto> getAllTipsAmsterdam(){
+    public List<TipAmsterdamDto> getAllTipsAmsterdam() {
         var dtos = new ArrayList<TipAmsterdamDto>();
         var allTipsAmsterdam = tipAmsterdamService.getAllTipsAmsterdam();
 
@@ -50,23 +54,50 @@ public class TipAmsterdamController {
         return TipAmsterdamDto.fromTipAmsterdam(tipAmsterdam);
     }
 
-    @PostMapping("/{id}/picturePath")
-    public void uploadPicturePath(@PathVariable("id") Long id, @RequestParam("picturePath") MultipartFile picturePath)throws IOException {
-        if (picturePath.getContentType()== null || !picturePath.getContentType().equals("application/pdf")) {
-            throw new BadRequestExeption();
+    @PostMapping(value = "/tip_upload")
+    public ResponseEntity<Object> addTip(@RequestParam String address,
+                                         @RequestParam String explanation,
+                                         @RequestParam boolean privateTip,
+                                         @RequestParam boolean publicTip,
+                                         @RequestParam boolean standardTip,
+                                         @RequestParam MultipartFile picturePath) {
+        try {
+            fileStorageServiceImp.uploadFile(picturePath);
+
+            TipAmsterdam tipAmsterdam = new TipAmsterdam();
+            tipAmsterdam.setAddress(address);
+            tipAmsterdam.setExplanation(explanation);
+            tipAmsterdam.setPublicTip(publicTip);
+            tipAmsterdam.setPrivateTip(privateTip);
+            tipAmsterdam.setStandardTip(standardTip);
+            tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
+
+            tipAmsterdamService.addTipAmsterdam(tipAmsterdam);
+
+            return ResponseEntity.noContent().build();
+        } catch (Exception exception) {
+            throw new BadRequestException();
         }
-        tipAmsterdamService.uploadPicturePath(id, picturePath);
     }
-
-    @GetMapping("/{id}/picturePath")
-    public ResponseEntity<byte[]> getPicturePath (@PathVariable("id") Long id) {
-        var picturePathBytes = tipAmsterdamService.getPicturePath(id);
-
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"image.pdf\"").body(picturePathBytes);
-    }
-
-
 }
+
+//    @PostMapping("/{id}/picturePath")
+//    public void uploadPicturePath(@PathVariable("id") Long id, @RequestParam("picturePath") MultipartFile picturePath)throws IOException {
+//        if (picturePath.getContentType()== null || !picturePath.getContentType().equals("application/pdf")) {
+//            throw new BadRequestExeption();
+//        }
+//        tipAmsterdamService.uploadPicturePath(id, picturePath);
+//    }
+
+//    @GetMapping("/{id}/picturePath")
+//    public ResponseEntity<byte[]> getPicturePath (@PathVariable("id") Long id) {
+//        var picturePathBytes = tipAmsterdamService.getPicturePath(id);
+//
+//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"image.pdf\"").body(picturePathBytes);
+//    }
+
+
+
 
 
 
