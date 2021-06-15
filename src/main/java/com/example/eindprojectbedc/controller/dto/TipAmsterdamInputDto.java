@@ -9,7 +9,7 @@ public class TipAmsterdamInputDto {
     public boolean isPrivateTip;
     public boolean isPublicTip;
     public boolean isStandardTip;
-    byte[] picturePath;
+    String picturePath;
 
     public TipAmsterdam toTipAmsterdam(){
         var tipAmsterdam = new TipAmsterdam();

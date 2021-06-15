@@ -5,8 +5,8 @@ import com.example.eindprojectbedc.model.TipAmsterdam;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
+
+import java.nio.file.Path;
 import java.util.List;
 
 @Service
@@ -45,27 +45,33 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService{
     }
 
     @Override
-    public void uploadPicturePath(Long id, MultipartFile picturePath) throws IOException {
-        var optionalTipAmsterdam = tipAmsterdamRepository.findById(id);
-        if (optionalTipAmsterdam.isPresent()) {
-            var tipAmsterdam = optionalTipAmsterdam.get();
-            tipAmsterdam.setPicturePath(picturePath.getBytes());
-            tipAmsterdamRepository.save(tipAmsterdam);
-        } else {
-            throw new NotFoundException();
-        }
-    }
-
-    @Override
-    public byte[] getPicturePath(Long id) {
-        var optionalTipAmsterdam = tipAmsterdamRepository.findById(id);
-        if (optionalTipAmsterdam.isPresent()){
-            return optionalTipAmsterdam.get().getPicturePath();
-        } else {
-            throw new NotFoundException();
-        }
+    public void addTipAmsterdam(TipAmsterdam tipAmsterdam) {
+        tipAmsterdamRepository.save(tipAmsterdam);
     }
 }
+
+//    @Override
+//    public void uploadPicturePath(Long id, MultipartFile picturePath) throws IOException {
+//        var optionalTipAmsterdam = tipAmsterdamRepository.findById(id);
+//        if (optionalTipAmsterdam.isPresent()) {
+//            var tipAmsterdam = optionalTipAmsterdam.get();
+//            tipAmsterdam.setPicturePath(picturePath.getBytes());
+//            tipAmsterdamRepository.save(tipAmsterdam);
+//        } else {
+//            throw new NotFoundException();
+//        }
+//    }
+
+//    @Override
+//    public byte[] getPicturePath(Long id) {
+//        var optionalTipAmsterdam = tipAmsterdamRepository.findById(id);
+//        if (optionalTipAmsterdam.isPresent()){
+//            return optionalTipAmsterdam.get().getPicturePath();
+//        } else {
+//            throw new NotFoundException();
+//        }
+//    }
+//}
 
 
 
