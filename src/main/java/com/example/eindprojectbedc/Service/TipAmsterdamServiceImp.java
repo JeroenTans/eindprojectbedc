@@ -5,7 +5,6 @@ import com.example.eindprojectbedc.model.TipAmsterdam;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.nio.file.Path;
 import java.util.List;
 
