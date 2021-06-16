@@ -1,4 +1,5 @@
 package com.example.eindprojectbedc.controller;
+import com.example.eindprojectbedc.Service.FileStorageService;
 
 import com.example.eindprojectbedc.Service.FileStorageService;
 import com.example.eindprojectbedc.Service.FileStorageServiceImp;
@@ -59,16 +60,16 @@ public class TipAmsterdamController {
                                          @RequestParam MultipartFile picturePath) {
         try {
             fileStorageService.uploadFile(picturePath);
-//
-//            TipAmsterdam tipAmsterdam = new TipAmsterdam();
-//            tipAmsterdam.setAddress(address);
-//            tipAmsterdam.setExplanation(explanation);
-//            tipAmsterdam.setPublicTip(publicTip);
-//            tipAmsterdam.setPrivateTip(privateTip);
-//            tipAmsterdam.setStandardTip(standardTip);
-//            tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
 
-//            tipAmsterdamService.addTipAmsterdam(tipAmsterdam);
+            TipAmsterdam tipAmsterdam = new TipAmsterdam();
+            tipAmsterdam.setAddress(address);
+            tipAmsterdam.setExplanation(explanation);
+            tipAmsterdam.setPublicTip(publicTip);
+            tipAmsterdam.setPrivateTip(privateTip);
+            tipAmsterdam.setStandardTip(standardTip);
+            tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
+
+            tipAmsterdamService.addTipAmsterdam(tipAmsterdam);
 
             return ResponseEntity.noContent().build();
         } catch (Exception exception) {
