@@ -12,6 +12,7 @@ public class TipAmsterdam {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String picturePath;
 
     private String address;

@@ -1,17 +1,19 @@
 package com.example.eindprojectbedc.controller;
+import com.example.eindprojectbedc.Service.FileStorageService;
 
+import com.example.eindprojectbedc.Service.FileStorageService;
 import com.example.eindprojectbedc.Service.FileStorageServiceImp;
 import com.example.eindprojectbedc.Service.TipAmsterdamService;
+import com.example.eindprojectbedc.Service.TipAmsterdamServiceImp;
 import com.example.eindprojectbedc.controller.dto.TipAmsterdamDto;
 import com.example.eindprojectbedc.controller.dto.TipAmsterdamInputDto;
 import com.example.eindprojectbedc.exception.BadRequestException;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,13 +25,8 @@ public class TipAmsterdamController {
     @Autowired
     TipAmsterdamService tipAmsterdamService;
 
-    FileStorageServiceImp fileStorageServiceImp;
-
-//    @Autowired
-//    public TipAmsterdamController(TipAmsterdamService tipAmsterdamService, FileStorageServiceImp fileStorageServiceImp) {
-//        this.tipAmsterdamService = tipAmsterdamService;
-//        this.fileStorageServiceImp = fileStorageServiceImp;
-//    }
+    @Autowired
+    FileStorageService fileStorageService;
 
     @GetMapping
     public List<TipAmsterdamDto> getAllTipsAmsterdam() {
@@ -62,7 +59,7 @@ public class TipAmsterdamController {
                                          @RequestParam boolean standardTip,
                                          @RequestParam MultipartFile picturePath) {
         try {
-            fileStorageServiceImp.uploadFile(picturePath);
+            fileStorageService.uploadFile(picturePath);
 
             TipAmsterdam tipAmsterdam = new TipAmsterdam();
             tipAmsterdam.setAddress(address);
@@ -76,10 +73,35 @@ public class TipAmsterdamController {
 
             return ResponseEntity.noContent().build();
         } catch (Exception exception) {
-            throw new BadRequestException();
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+//    @Autowired
+//    public TipAmsterdamController(TipAmsterdamService tipAmsterdamService, FileStorageServiceImp fileStorageServiceImp) {
+//        this.tipAmsterdamService = tipAmsterdamService;
+//        this.fileStorageServiceImp = fileStorageServiceImp;
+//    }
+
+//    private static final String storageLocation = "/Users/";
+//    String fileName = "IMG_1391.HEIC";
+//
+//    @RequestMapping(value = "/file-upload", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String uploadFileDown(@RequestParam("picturePath") MultipartFile multipartFile) throws IOException {
+//        multipartFile.transferTo(new File(storageLocation + fileName));
+//        return "File successfully uploaded!";
+//    }
 
 //    @PostMapping("/{id}/picturePath")
 //    public void uploadPicturePath(@PathVariable("id") Long id, @RequestParam("picturePath") MultipartFile picturePath)throws IOException {
