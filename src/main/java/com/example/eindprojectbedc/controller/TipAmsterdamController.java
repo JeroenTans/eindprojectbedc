@@ -1,20 +1,12 @@
 package com.example.eindprojectbedc.controller;
 import com.example.eindprojectbedc.Service.FileStorageService;
-
-import com.example.eindprojectbedc.Service.FileStorageService;
-import com.example.eindprojectbedc.Service.FileStorageServiceImp;
 import com.example.eindprojectbedc.Service.TipAmsterdamService;
-import com.example.eindprojectbedc.Service.TipAmsterdamServiceImp;
-import com.example.eindprojectbedc.controller.dto.TipAmsterdamDto;
-import com.example.eindprojectbedc.controller.dto.TipAmsterdamInputDto;
-import com.example.eindprojectbedc.exception.BadRequestException;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = {"*"})
@@ -29,27 +21,20 @@ public class TipAmsterdamController {
     FileStorageService fileStorageService;
 
     @GetMapping
-    public List<TipAmsterdamDto> getAllTipsAmsterdam() {
-        var dtos = new ArrayList<TipAmsterdamDto>();
-        var allTipsAmsterdam = tipAmsterdamService.getAllTipsAmsterdam();
-
-        for (TipAmsterdam tipAmsterdam : allTipsAmsterdam) {
-            dtos.add(TipAmsterdamDto.fromTipAmsterdam(tipAmsterdam));
-        }
-        return dtos;
+    public List<TipAmsterdam> getAllTipsAmsterdam() {
+        return tipAmsterdamService.getAllTipsAmsterdam();
     }
 
     @GetMapping("/{id}")
-    public TipAmsterdamDto getTipAmsterdam(@PathVariable("id") Long id) {
-        var tipAmsterdam = tipAmsterdamService.getTipAmsterdam(id);
-        return TipAmsterdamDto.fromTipAmsterdam(tipAmsterdam);
+    public TipAmsterdam getTipAmsterdam(@PathVariable("id") Long id) {
+        return tipAmsterdamService.getTipAmsterdam(id);
     }
 
-    @PostMapping
-    public TipAmsterdamDto saveTipAmsterdam(@RequestBody TipAmsterdamInputDto dto) {
-        var tipAmsterdam = tipAmsterdamService.saveTipAmsterdam(dto.toTipAmsterdam());
-        return TipAmsterdamDto.fromTipAmsterdam(tipAmsterdam);
-    }
+//    @PostMapping
+//    public TipAmsterdamDto saveTipAmsterdam(@RequestBody TipAmsterdamInputDto dto) {
+//        var tipAmsterdam = tipAmsterdamService.saveTipAmsterdam(dto.toTipAmsterdam());
+//        return TipAmsterdamDto.fromTipAmsterdam(tipAmsterdam);
+//    }
 
     @PostMapping(value = "/tip_upload")
     public ResponseEntity<Object> addTip(@RequestParam String address,
