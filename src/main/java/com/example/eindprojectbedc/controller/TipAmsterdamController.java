@@ -3,10 +3,16 @@ import com.example.eindprojectbedc.Service.FileStorageService;
 import com.example.eindprojectbedc.Service.TipAmsterdamService;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = {"*"})
@@ -25,16 +31,29 @@ public class TipAmsterdamController {
         return tipAmsterdamService.getAllTipsAmsterdam();
     }
 
+    @GetMapping("{id}/picturePath")
+    public ResponseEntity downloadFile (@PathVariable Long id) {
+        Resource resource = tipAmsterdamService.downloadFile(id);
+        String fileName = tipAmsterdamService.getTipAmsterdam(id).getPicturePath();
+        String mediaType = "application/octet-stream";
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mediaType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename = \"" + fileName + "\"")
+                .body(resource);
+    }
+
     @GetMapping("/{id}")
     public TipAmsterdam getTipAmsterdam(@PathVariable("id") Long id) {
         return tipAmsterdamService.getTipAmsterdam(id);
     }
 
-//    @PostMapping
-//    public TipAmsterdamDto saveTipAmsterdam(@RequestBody TipAmsterdamInputDto dto) {
-//        var tipAmsterdam = tipAmsterdamService.saveTipAmsterdam(dto.toTipAmsterdam());
-//        return TipAmsterdamDto.fromTipAmsterdam(tipAmsterdam);
-//    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteTipAmsterdamById(@PathVariable("id") Long id) throws IOException {
+        String fileName = getTipAmsterdam(id).getPicturePath();
+        tipAmsterdamService.deleteTipAmsterdam(id);
+        fileStorageService.deleteFile(fileName);
+        return ResponseEntity.noContent().build();
+    }
 
     @PostMapping(value = "/tip_upload")
     public ResponseEntity<Object> addTip(@RequestParam String address,
