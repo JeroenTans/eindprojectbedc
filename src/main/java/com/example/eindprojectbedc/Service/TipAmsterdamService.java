@@ -1,6 +1,7 @@
 package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.model.TipAmsterdam;
+import org.springframework.core.io.Resource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -17,6 +18,8 @@ public interface TipAmsterdamService {
     void deleteTipAmsterdam(Long id);
 
     void addTipAmsterdam(TipAmsterdam tipAmsterdam);
+
+    Resource downloadFile(Long id);
 
 //    void uploadPicturePath(Long id, MultipartFile picturePath) throws IOException;
 

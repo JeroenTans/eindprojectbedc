@@ -1,17 +1,28 @@
 package com.example.eindprojectbedc.Service;
 
+import com.example.eindprojectbedc.exception.FileStorageException;
 import com.example.eindprojectbedc.exception.NotFoundException;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
+import org.apache.tomcat.util.file.ConfigurationSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TipAmsterdamServiceImp implements TipAmsterdamService{
 
     private TipAmsterdamRepository tipAmsterdamRepository;
+    Path uploads = Paths.get("./uploads");
+
 
     @Autowired
     public TipAmsterdamServiceImp(TipAmsterdamRepository tipAmsterdamRepository){
@@ -47,6 +58,28 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService{
     public void addTipAmsterdam(TipAmsterdam tipAmsterdam) {
         tipAmsterdamRepository.save(tipAmsterdam);
     }
+
+    public Resource downloadFile(Long id) {
+        Optional<TipAmsterdam> stored = tipAmsterdamRepository.findById(id);
+
+        if (stored.isPresent()) {
+            String fileName = stored.get().getPicturePath();
+            Path path = this.uploads.resolve(fileName);
+
+            Resource resource = null;
+
+            try {
+                resource = new UrlResource(path.toUri());
+                return resource;
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            throw new NotFoundException();
+        }
+        return null;
+    }
+
 }
 
 //    @Override
