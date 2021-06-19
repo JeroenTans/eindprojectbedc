@@ -111,6 +111,8 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         return publicTipsAmsterdam;
     }
 
+}
+
 //    @Override
 //    public List<TipAmsterdam> getAllPublicTipsAmsterdam() {
 //        List<TipAmsterdam> tipsAmsterdam = tipAmsterdamRepository.findAll();
@@ -119,8 +121,6 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
 //            if (tipsAmsterdam.get(i).isPublicTip()) return publicTipsAmsterdam[i]=tipsAmsterdam;
 //        }
 //    }
-
-}
 
 //    @Override
 //    public Optional<TipAmsterdam> getPublicTip(Long id) {

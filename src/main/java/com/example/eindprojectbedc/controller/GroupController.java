@@ -4,6 +4,7 @@ import com.example.eindprojectbedc.Service.GroupService;
 import com.example.eindprojectbedc.controller.dto.GroupDto;
 import com.example.eindprojectbedc.controller.dto.GroupInputDto;
 import com.example.eindprojectbedc.model.Group;
+import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,20 +24,17 @@ public class GroupController {
     }
 
     @GetMapping
-    public List<GroupDto> getWholeGroup() {
-        var dtos = new ArrayList<GroupDto>();
-        var wholeGroup = groupService.getWholeGroup();
-
-        for (Group group : wholeGroup) {
-            dtos.add(GroupDto.fromGroup(group));
-        }
-        return dtos;
+    public List<Group> getWholeGroup() {
+        return groupService.getWholeGroup();
     }
 
+
+//    public TipAmsterdam getTipAmsterdam(@PathVariable("id") Long id) {
+//        return tipAmsterdamService.getTipAmsterdam(id);
+//    }
     @GetMapping("/{id}")
-    public GroupDto getGroup(@PathVariable("id") Long id) {
-        var group = groupService.getGroup(id);
-        return GroupDto.fromGroup(group);
+    public Group getGroupMember(@PathVariable("id") Long id) {
+        return groupService.getGroup(id);
     }
 
     @PostMapping
@@ -46,3 +44,12 @@ public class GroupController {
     }
 
 }
+//    public List<GroupDto> getWholeGroup() {
+//        var dtos = new ArrayList<GroupDto>();
+//        var wholeGroup = groupService.getWholeGroup();
+//
+//        for (Group group : wholeGroup) {
+//            dtos.add(GroupDto.fromGroup(group));
+//        }
+//        return dtos;
+//    }
