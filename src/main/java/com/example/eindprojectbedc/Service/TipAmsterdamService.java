@@ -22,7 +22,11 @@ public interface TipAmsterdamService {
 
     Resource downloadFile(Long id);
 
-//    List<TipAmsterdam> getAllPublicTipsAmsterdam();
+    List<Object> getAllPublicTipsAmsterdam();
+
+    List<Object> getAllPrivateTipsAmsterdam();
+
+    List<Object> getAllStandardTipsAmsterdam();
 
 }
 

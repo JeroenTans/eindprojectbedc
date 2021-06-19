@@ -56,12 +56,17 @@ public class TipAmsterdamController {
 
     @GetMapping("publicTip")
     public List<Object> getAllPublicTipsAmsterdam() {
-        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamService.getAllTipsAmsterdam();
-        List<Object> publicTipsAmsterdam = new ArrayList<>();
-        for (int i = 0; i < tipAmsterdamList.size(); i++) {
-            if (tipAmsterdamList.get(i).isPublicTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
-        }
-        return publicTipsAmsterdam;
+        return tipAmsterdamService.getAllPublicTipsAmsterdam();
+    }
+
+    @GetMapping("privateTip")
+    public List<Object> getAllPrivateTipsAmsterdam() {
+        return tipAmsterdamService.getAllPrivateTipsAmsterdam();
+    }
+
+    @GetMapping("standardTip")
+    public List<Object> getAllStandardTipsAmsterdam() {
+        return tipAmsterdamService.getAllStandardTipsAmsterdam();
     }
 
     @DeleteMapping("/{id}")

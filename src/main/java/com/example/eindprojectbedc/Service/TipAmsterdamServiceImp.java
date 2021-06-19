@@ -81,6 +81,36 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         return null;
     }
 
+    @Override
+    public List<Object> getAllPublicTipsAmsterdam() {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> publicTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).isPublicTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return publicTipsAmsterdam;
+    }
+
+    @Override
+    public List<Object> getAllPrivateTipsAmsterdam() {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> publicTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).isPrivateTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return publicTipsAmsterdam;
+    }
+
+    @Override
+    public List<Object> getAllStandardTipsAmsterdam() {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> publicTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).isStandardTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return publicTipsAmsterdam;
+    }
+
 //    @Override
 //    public List<TipAmsterdam> getAllPublicTipsAmsterdam() {
 //        List<TipAmsterdam> tipsAmsterdam = tipAmsterdamRepository.findAll();
