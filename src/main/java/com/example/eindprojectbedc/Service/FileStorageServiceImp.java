@@ -31,7 +31,6 @@ public class FileStorageServiceImp implements FileStorageService{
     private String uploadDirectory;  // relative to root
     private final Path uploads = Paths.get("./uploads");
 
-
     @Override
     public void uploadFile(MultipartFile picturePath) {
         try {
