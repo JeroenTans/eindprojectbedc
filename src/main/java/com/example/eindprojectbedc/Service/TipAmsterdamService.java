@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public interface TipAmsterdamService {
 
@@ -13,7 +14,7 @@ public interface TipAmsterdamService {
 
     TipAmsterdam getTipAmsterdam(Long id);
 
-    TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam);
+    Optional<TipAmsterdam> getTipAmsterdamById(Long id);
 
     void deleteTipAmsterdam(Long id);
 
@@ -21,9 +22,12 @@ public interface TipAmsterdamService {
 
     Resource downloadFile(Long id);
 
-//    void uploadPicturePath(Long id, MultipartFile picturePath) throws IOException;
+    List<Object> getAllPublicTipsAmsterdam();
 
-//    byte[] getPicturePath(Long id);
+    List<Object> getAllPrivateTipsAmsterdam();
 
+    List<Object> getAllStandardTipsAmsterdam();
 
 }
+
+//    TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam);

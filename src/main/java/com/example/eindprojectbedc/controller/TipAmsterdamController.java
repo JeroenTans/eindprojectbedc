@@ -8,12 +8,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = {"*"})
 @RestController
@@ -45,6 +46,27 @@ public class TipAmsterdamController {
     @GetMapping("/{id}")
     public TipAmsterdam getTipAmsterdam(@PathVariable("id") Long id) {
         return tipAmsterdamService.getTipAmsterdam(id);
+    }
+
+    @GetMapping("/tip/{id}")
+    public ResponseEntity<Object> getTipAmsterdamById(@PathVariable("id") Long id) {
+        Optional<TipAmsterdam> tipAmsterdam = tipAmsterdamService.getTipAmsterdamById(id);
+        return new ResponseEntity<>(tipAmsterdam, HttpStatus.OK);
+    }
+
+    @GetMapping("publicTip")
+    public List<Object> getAllPublicTipsAmsterdam() {
+        return tipAmsterdamService.getAllPublicTipsAmsterdam();
+    }
+
+    @GetMapping("privateTip")
+    public List<Object> getAllPrivateTipsAmsterdam() {
+        return tipAmsterdamService.getAllPrivateTipsAmsterdam();
+    }
+
+    @GetMapping("standardTip")
+    public List<Object> getAllStandardTipsAmsterdam() {
+        return tipAmsterdamService.getAllStandardTipsAmsterdam();
     }
 
     @DeleteMapping("/{id}")
@@ -81,10 +103,6 @@ public class TipAmsterdamController {
         }
     }
 }
-
-
-
-
 
 
 

@@ -1,6 +1,7 @@
 package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.exception.FileStorageException;
+import com.example.eindprojectbedc.exception.IdNotFoundException;
 import com.example.eindprojectbedc.exception.NotFoundException;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
@@ -14,18 +15,20 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class TipAmsterdamServiceImp implements TipAmsterdamService{
+public class TipAmsterdamServiceImp implements TipAmsterdamService {
 
     private TipAmsterdamRepository tipAmsterdamRepository;
     Path uploads = Paths.get("./uploads");
 
 
     @Autowired
-    public TipAmsterdamServiceImp(TipAmsterdamRepository tipAmsterdamRepository){
+    public TipAmsterdamServiceImp(TipAmsterdamRepository tipAmsterdamRepository) {
         this.tipAmsterdamRepository = tipAmsterdamRepository;
     }
 
@@ -36,18 +39,16 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService{
 
     @Override
     public TipAmsterdam getTipAmsterdam(Long id) {
-        var optionalTipAmsterdam = tipAmsterdamRepository.findById(id);
-        if (optionalTipAmsterdam.isPresent()){
-            return optionalTipAmsterdam.get();
-        } else {
-            throw new NotFoundException();
-        }
+        return tipAmsterdamRepository.getById(id);
     }
 
     @Override
-    public TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam){
-        return tipAmsterdamRepository.save(tipAmsterdam);
+    public Optional<TipAmsterdam> getTipAmsterdamById(Long id) {
+        if (!tipAmsterdamRepository.existsById(id)) throw new IdNotFoundException(id);
+        Optional<TipAmsterdam> tipAmsterdam = tipAmsterdamRepository.findById(id);
+        return tipAmsterdam;
     }
+
 
     @Override
     public void deleteTipAmsterdam(Long id) {
@@ -80,7 +81,60 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService{
         return null;
     }
 
+    @Override
+    public List<Object> getAllPublicTipsAmsterdam() {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> publicTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).isPublicTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return publicTipsAmsterdam;
+    }
+
+    @Override
+    public List<Object> getAllPrivateTipsAmsterdam() {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> publicTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).isPrivateTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return publicTipsAmsterdam;
+    }
+
+    @Override
+    public List<Object> getAllStandardTipsAmsterdam() {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> publicTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).isStandardTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return publicTipsAmsterdam;
+    }
+
+//    @Override
+//    public List<TipAmsterdam> getAllPublicTipsAmsterdam() {
+//        List<TipAmsterdam> tipsAmsterdam = tipAmsterdamRepository.findAll();
+//        List<TipAmsterdam> publicTipsAmsterdam = new ArrayList<>();
+//        for (int i = 0; i < tipsAmsterdam.size(); i++) {
+//            if (tipsAmsterdam.get(i).isPublicTip()) return publicTipsAmsterdam[i]=tipsAmsterdam;
+//        }
+//    }
+
 }
+
+//    @Override
+//    public Optional<TipAmsterdam> getPublicTip(Long id) {
+//        if (!tipAmsterdamRepository.existsById(id)) throw new IdNotFoundException(id);
+//        Optional<TipAmsterdam> tipAmsterdam = tipAmsterdamRepository.findByIsPublicTip();
+//        if (tipAmsterdam.get().isPublicTip()) return tipAmsterdam;
+//        return null;
+//    }
+
+//    @Override
+//    public TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam){
+//        return tipAmsterdamRepository.save(tipAmsterdam);
+//    }
+
 
 //    @Override
 //    public void uploadPicturePath(Long id, MultipartFile picturePath) throws IOException {
