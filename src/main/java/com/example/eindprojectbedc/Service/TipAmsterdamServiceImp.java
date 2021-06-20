@@ -49,6 +49,12 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         return tipAmsterdam;
     }
 
+//    public Optional<TipAmsterdam> getTwoTipsAmsterdamById(Long idOne, Long idTwo) {
+//        if (!tipAmsterdamRepository.existsById(idOne) && !tipAmsterdamRepository.existsById(idTwo)) throw new NotFoundException();
+//        Optional<TipAmsterdam> twoTipsAmsterdam = tipAmsterdamRepository.findTipAmsterdamByIdAndId(idOne, idTwo);
+//        return twoTipsAmsterdam;
+//    }
+
 
     @Override
     public void deleteTipAmsterdam(Long id) {

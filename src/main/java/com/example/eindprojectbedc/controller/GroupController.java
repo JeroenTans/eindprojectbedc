@@ -4,11 +4,9 @@ import com.example.eindprojectbedc.Service.GroupService;
 import com.example.eindprojectbedc.controller.dto.GroupDto;
 import com.example.eindprojectbedc.controller.dto.GroupInputDto;
 import com.example.eindprojectbedc.model.Group;
-import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin(origins = {"*"})
@@ -28,10 +26,6 @@ public class GroupController {
         return groupService.getWholeGroup();
     }
 
-
-//    public TipAmsterdam getTipAmsterdam(@PathVariable("id") Long id) {
-//        return tipAmsterdamService.getTipAmsterdam(id);
-//    }
     @GetMapping("/{id}")
     public Group getGroupMember(@PathVariable("id") Long id) {
         return groupService.getGroup(id);
@@ -41,6 +35,11 @@ public class GroupController {
     public GroupDto saveGroup(@RequestBody GroupInputDto dto) {
         var group = groupService.saveGroup(dto.toGroup());
         return GroupDto.fromGroup(group);
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteGroupMemberById (@PathVariable Long id) {
+        groupService.deleteGroup(id);
     }
 
 }
