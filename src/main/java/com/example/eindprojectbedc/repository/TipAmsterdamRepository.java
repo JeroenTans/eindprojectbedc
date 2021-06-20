@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface TipAmsterdamRepository extends JpaRepository<TipAmsterdam, Long> {
 //    List<TipAmsterdam> findByPublicTipIsTrue();
+//    List<TipAmsterdam> findTipAmsterdamByIdAndSecond();
 }
