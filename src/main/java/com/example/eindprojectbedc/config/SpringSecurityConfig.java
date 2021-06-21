@@ -22,22 +22,22 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 //    public CustomUserDetailsService customUserDetailsService;
 //    @Autowired
 //    private JwtRequestFilter jwtRequestFilter;
-
+//
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 //        auth.userDetailsService(customUserDetailsService);
 //    }
-
+//
 //    @Override
 //    @Bean
 //    public AuthenticationManager authenticationManagerBean() throws Exception {
 //        return super.authenticationManagerBean();
 //    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
