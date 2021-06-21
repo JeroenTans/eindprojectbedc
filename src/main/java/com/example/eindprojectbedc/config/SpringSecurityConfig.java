@@ -1,5 +1,7 @@
 package com.example.eindprojectbedc.config;
 
+import com.example.eindprojectbedc.Service.CustomUserDetailsService;
+import com.example.eindprojectbedc.filter.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -18,26 +20,29 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-//    @Autowired
-//    public CustomUserDetailsService customUserDetailsService;
-//    @Autowired
-//    private JwtRequestFilter jwtRequestFilter;
-//
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(customUserDetailsService);
-//    }
-//
-//    @Override
-//    @Bean
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-//
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+
+
+    @Autowired
+    public CustomUserDetailsService customUserDetailsService;
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailsService);
+    }
+
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -45,14 +50,18 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/api/v*/registration/**")
+                .permitAll()
 //                .antMatchers("/api/v1/authenticate").permitAll()
 //                .antMatchers(HttpMethod.GET,"/api/v1/naam/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET,"/api/v1/users/**/authorities").hasRole("ADMIN")
-                .anyRequest().permitAll()
+                .anyRequest()
+                .permitAll()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .formLogin();
     }
 
     @Configuration
