@@ -1,11 +1,9 @@
 package com.example.eindprojectbedc.config;
 
 import org.springframework.stereotype.Component;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
 @Component
 public class CrosFilter implements Filter {
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -23,4 +21,5 @@ public class CrosFilter implements Filter {
 
     public void destroy() {
     }
+
 }

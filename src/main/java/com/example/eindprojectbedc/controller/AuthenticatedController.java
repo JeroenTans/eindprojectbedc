@@ -17,7 +17,7 @@ import java.security.Principal;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-@RequestMapping("/api/v1/")
+@RequestMapping("/api/v1")
 public class AuthenticatedController {
 
     @Autowired
