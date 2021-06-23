@@ -50,8 +50,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v*/registration/**")
-                .permitAll()
+                .antMatchers("/api/v1/authenticate").permitAll()
+//                .antMatchers("/api/v1/authenticate").permitAll()
+//                .antMatchers("/api/v1/authenticate/**")
 //                .antMatchers("/api/v1/authenticate").permitAll()
 //                .antMatchers(HttpMethod.GET,"/api/v1/naam/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET,"/api/v1/users/**/authorities").hasRole("ADMIN")
@@ -62,6 +63,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin();
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Configuration
