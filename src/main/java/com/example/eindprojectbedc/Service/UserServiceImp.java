@@ -8,6 +8,7 @@ import com.example.eindprojectbedc.repository.UserRepository;
 import com.example.eindprojectbedc.utils.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -18,7 +19,11 @@ import java.util.Set;
 public class UserServiceImp implements UserService{
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserRepository userRepository;
+
     @Override
     public Collection<User> getUsers() {
         return userRepository.findAll();
@@ -38,6 +43,7 @@ public class UserServiceImp implements UserService{
     public String createUser(User user) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
         user.setApikey(randomString);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         User newUser = userRepository.save(user);
         return newUser.getUsername();
     }

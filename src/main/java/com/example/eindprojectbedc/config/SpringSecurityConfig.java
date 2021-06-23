@@ -24,10 +24,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public CustomUserDetailsService customUserDetailsService;
-
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService);
@@ -46,22 +44,19 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         //JWT token authentication
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/v*/registration/**")
-                .permitAll()
-//                .antMatchers("/api/v1/authenticate").permitAll()
-//                .antMatchers(HttpMethod.GET,"/api/v1/naam/**").hasRole("ADMIN")
+                .antMatchers("/api/v1/authenticate").permitAll()
+//                .antMatchers(HttpMethod.GET,"/api/v1/tips/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET,"/api/v1/users/**/authorities").hasRole("ADMIN")
-                .anyRequest()
-                .permitAll()
+                .anyRequest().permitAll()
                 .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .formLogin();
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Configuration

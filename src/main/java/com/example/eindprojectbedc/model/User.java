@@ -24,6 +24,9 @@ public class User {
     @Column
     private String email;
 
+    @Column
+    private String residence;
+
     @OneToMany(
             targetEntity = com.example.eindprojectbedc.model.Authority.class,
             mappedBy = "username",
@@ -32,6 +35,15 @@ public class User {
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
+    public String getResidence() {
+        return residence;
+    }
+    public void setResidence(String residence) {
+        this.residence = residence;
+    }
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
     public String getUsername() { return username; }
     public void setUsername(String username) {
         this.username = username;

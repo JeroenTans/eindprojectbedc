@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 
 @RestController
-@RequestMapping
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@RequestMapping("/api/v1")
 public class AuthenticatedController {
 
     @Autowired
