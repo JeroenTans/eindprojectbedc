@@ -28,6 +28,8 @@ public interface TipAmsterdamService {
 
     List<Object> getAllStandardTipsAmsterdam();
 
+    List<Object> getAllPrivateTipsAmsterdamByUsername(String username);
+
 }
 
 //    TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam);

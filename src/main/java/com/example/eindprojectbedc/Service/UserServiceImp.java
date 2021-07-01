@@ -1,7 +1,6 @@
 package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.exception.NotFoundException;
-import com.example.eindprojectbedc.exception.RecourceNotFoundException;
 import com.example.eindprojectbedc.model.Authority;
 import com.example.eindprojectbedc.model.User;
 import com.example.eindprojectbedc.repository.UserRepository;

@@ -2,6 +2,7 @@ package com.example.eindprojectbedc.model;
 
 import javax.persistence.*;
 
+@SuppressWarnings("JpaAttributeTypeInspection")
 @Entity
 @Table(name = "reviews")
 public class Review {
@@ -18,6 +19,13 @@ public class Review {
 
     private Boolean brokenHeart;
 
+    @Column(name = "tip_amsterdam_id")
+    private Long tipAmsterdamId;
+
+    @ManyToOne
+    @JoinColumn(name = "tip_amsterdam_id",insertable = false, updatable = false)
+    private TipAmsterdam tipAmsterdam;
+
     public Review() {
     }
 
@@ -28,6 +36,24 @@ public class Review {
         this.brokenHeart = brokenHeart;
     }
 
+    public Long getTipAmsterdamId() {
+        return tipAmsterdamId;
+    }
+    public void setTipAmsterdamId(Long tipAmsterdamId) {
+        this.tipAmsterdamId = tipAmsterdamId;
+    }
+    //    public Long getTipAmsterdamId() {
+//        return tipAmsterdamId;
+//    }
+//    public void setTipAmsterdamId(Long tipAmsterdamId) {
+//        this.tipAmsterdamId = tipAmsterdamId;
+////    }
+//    public TipAmsterdam getTipAmsterdam() {
+//        return tipAmsterdam;
+//    }
+//    public void setTipAmsterdam(TipAmsterdam tipAmsterdam) {
+//        this.tipAmsterdam = tipAmsterdam;
+//    }
     public Boolean getBrokenHeart() {
         return brokenHeart;
     }

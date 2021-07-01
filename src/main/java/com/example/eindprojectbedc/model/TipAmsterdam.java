@@ -3,14 +3,19 @@ package com.example.eindprojectbedc.model;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.List;
 
+@SuppressWarnings("JpaAttributeTypeInspection")
 @Entity
-@Table(name = "TipAmsterdam")
+@Table(name = "tipAmsterdams")
 public class TipAmsterdam {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column
+    private String username;
 
     @Column
     private String picturePath;
@@ -25,9 +30,15 @@ public class TipAmsterdam {
 
     private boolean isStandardTip;
 
+    @OneToMany(mappedBy = "tipAmsterdam",
+            targetEntity = com.example.eindprojectbedc.model.Review.class,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private List<Review> reviews;
+
     public TipAmsterdam() {
     }
-
     public TipAmsterdam(String address, String explanation, String picturePath, boolean isStandardTip, boolean isPublicTip, boolean isPrivateTip) {
         this.address = address;
         this.explanation = explanation;
@@ -37,6 +48,18 @@ public class TipAmsterdam {
         this.isPrivateTip = isPrivateTip;
     }
 
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public List<Review> getReviews() {
+        return reviews;
+    }
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
     public boolean isStandardTip() {
         return isStandardTip;
     }
@@ -79,5 +102,4 @@ public class TipAmsterdam {
     public void setId(long id) {
         this.id = id;
     }
-
 }

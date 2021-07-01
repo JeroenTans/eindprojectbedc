@@ -20,6 +20,10 @@ import java.util.Optional;
 @RequestMapping("/api/v1/tips")
 public class TipAmsterdamController {
 
+    //@Autowired
+    //public PageService(PageRepositroy repository) {
+    //this.repositroy = repository;
+    //}
     @Autowired
     TipAmsterdamService tipAmsterdamService;
 
@@ -32,7 +36,7 @@ public class TipAmsterdamController {
     }
 
     @GetMapping("{id}/picturePath")
-    public ResponseEntity downloadFile (@PathVariable Long id) {
+    public ResponseEntity downloadFile (@PathVariable("id") Long id) {
         Resource resource = tipAmsterdamService.downloadFile(id);
         String fileName = tipAmsterdamService.getTipAmsterdam(id).getPicturePath();
         String mediaType = "application/octet-stream";
@@ -68,6 +72,11 @@ public class TipAmsterdamController {
         return tipAmsterdamService.getAllStandardTipsAmsterdam();
     }
 
+    @GetMapping("{username}/privateTip")
+    public List<Object> getAllPrivateTipsByUsername (@PathVariable("username") String username) {
+        return tipAmsterdamService.getAllPrivateTipsAmsterdamByUsername(username);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTipAmsterdamById(@PathVariable("id") Long id) throws IOException {
         String fileName = getTipAmsterdam(id).getPicturePath();
@@ -82,6 +91,7 @@ public class TipAmsterdamController {
                                          @RequestParam boolean privateTip,
                                          @RequestParam boolean publicTip,
                                          @RequestParam boolean standardTip,
+                                         @RequestParam String username,
                                          @RequestParam MultipartFile picturePath) {
         try {
             fileStorageService.uploadFile(picturePath);
@@ -92,6 +102,7 @@ public class TipAmsterdamController {
             tipAmsterdam.setPublicTip(publicTip);
             tipAmsterdam.setPrivateTip(privateTip);
             tipAmsterdam.setStandardTip(standardTip);
+            tipAmsterdam.setUsername(username);
             tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
 
             tipAmsterdamService.addTipAmsterdam(tipAmsterdam);

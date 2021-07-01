@@ -3,6 +3,7 @@ package com.example.eindprojectbedc.Service;
 import com.example.eindprojectbedc.exception.FileStorageException;
 import com.example.eindprojectbedc.exception.IdNotFoundException;
 import com.example.eindprojectbedc.exception.NotFoundException;
+import com.example.eindprojectbedc.model.Review;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
 import org.apache.tomcat.util.file.ConfigurationSource;
@@ -23,14 +24,19 @@ import java.util.Optional;
 @Service
 public class TipAmsterdamServiceImp implements TipAmsterdamService {
 
+    private ReviewService reviewService;
     private TipAmsterdamRepository tipAmsterdamRepository;
     Path uploads = Paths.get("./uploads");
-
 
     @Autowired
     public TipAmsterdamServiceImp(TipAmsterdamRepository tipAmsterdamRepository) {
         this.tipAmsterdamRepository = tipAmsterdamRepository;
     }
+
+//    public List<Review> getReviewsOfTips (Long id) {
+//        Optional<TipAmsterdam> tipAmsterdam = tipAmsterdamRepository.findById(id);
+//
+//    }
 
     @Override
     public List<TipAmsterdam> getAllTipsAmsterdam() {
@@ -115,6 +121,16 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
             if (tipAmsterdamList.get(i).isStandardTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
         }
         return publicTipsAmsterdam;
+    }
+
+    @Override
+    public List<Object> getAllPrivateTipsAmsterdamByUsername(String username) {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> privateTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).getUsername().equals(username) && tipAmsterdamList.get(i).isPrivateTip()) privateTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return privateTipsAmsterdam;
     }
 
 }

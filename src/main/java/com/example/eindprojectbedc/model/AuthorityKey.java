@@ -1,3 +1,4 @@
+
 package com.example.eindprojectbedc.model;
 
 import java.io.Serializable;
