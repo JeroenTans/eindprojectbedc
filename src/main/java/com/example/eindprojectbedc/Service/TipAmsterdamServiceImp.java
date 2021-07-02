@@ -61,7 +61,6 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
 //        return twoTipsAmsterdam;
 //    }
 
-
     @Override
     public void deleteTipAmsterdam(Long id) {
         tipAmsterdamRepository.deleteById(id);
