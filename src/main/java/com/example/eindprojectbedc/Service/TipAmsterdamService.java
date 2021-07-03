@@ -30,6 +30,7 @@ public interface TipAmsterdamService {
 
     List<Object> getAllPrivateTipsAmsterdamByUsername(String username);
 
+    List<Object> getAllPublicTipsAmsterdamByUsername(String username);
 }
 
 //    TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam);

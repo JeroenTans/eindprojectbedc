@@ -132,6 +132,17 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         return privateTipsAmsterdam;
     }
 
+    @Override
+    public List<Object> getAllPublicTipsAmsterdamByUsername(String username) {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> publicTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).getUsername().equals(username) && tipAmsterdamList.get(i).isPublicTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return publicTipsAmsterdam;
+    }
+
+
 }
 
 //    @Override

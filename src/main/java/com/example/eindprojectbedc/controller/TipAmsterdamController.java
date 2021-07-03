@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -77,6 +78,11 @@ public class TipAmsterdamController {
         return tipAmsterdamService.getAllPrivateTipsAmsterdamByUsername(username);
     }
 
+    @GetMapping("{username}/publicTip")
+    public List<Object> getAllPublicTipsByUsername (@PathVariable("username") String username) {
+        return tipAmsterdamService.getAllPublicTipsAmsterdamByUsername(username);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTipAmsterdamById(@PathVariable("id") Long id) throws IOException {
         String fileName = getTipAmsterdam(id).getPicturePath();
@@ -87,6 +93,34 @@ public class TipAmsterdamController {
 
     @PostMapping(value = "/tip_upload")
     public ResponseEntity<Object> addTip(@RequestParam String address,
+                                         @RequestParam String explanation,
+                                         @RequestParam boolean privateTip,
+                                         @RequestParam boolean publicTip,
+                                         @RequestParam boolean standardTip,
+                                         @RequestParam String username,
+                                         @RequestParam MultipartFile picturePath) {
+        try {
+            fileStorageService.uploadFile(picturePath);
+
+            TipAmsterdam tipAmsterdam = new TipAmsterdam();
+            tipAmsterdam.setAddress(address);
+            tipAmsterdam.setExplanation(explanation);
+            tipAmsterdam.setPublicTip(publicTip);
+            tipAmsterdam.setPrivateTip(privateTip);
+            tipAmsterdam.setStandardTip(standardTip);
+            tipAmsterdam.setUsername(username);
+            tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
+
+            tipAmsterdamService.addTipAmsterdam(tipAmsterdam);
+
+            return ResponseEntity.noContent().build();
+        } catch (Exception exception) {
+            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
+        }
+    }
+
+    @PostMapping(value = "/standardTip_upload")
+    public ResponseEntity<Object> addStandardTip(@RequestParam String address,
                                          @RequestParam String explanation,
                                          @RequestParam boolean privateTip,
                                          @RequestParam boolean publicTip,
