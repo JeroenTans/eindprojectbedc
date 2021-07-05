@@ -41,6 +41,9 @@ public class UserServiceImp implements UserService{
     @Override
     public String createUser(User user) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
+//        Authority authority = new Authority();
+//        authority.setAuthority("USER");
+//        user.addAuthority(authority);
         user.setApikey(randomString);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         User newUser = userRepository.save(user);

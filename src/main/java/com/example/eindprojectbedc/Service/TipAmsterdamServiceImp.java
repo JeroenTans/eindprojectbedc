@@ -3,9 +3,13 @@ package com.example.eindprojectbedc.Service;
 import com.example.eindprojectbedc.exception.FileStorageException;
 import com.example.eindprojectbedc.exception.IdNotFoundException;
 import com.example.eindprojectbedc.exception.NotFoundException;
+import com.example.eindprojectbedc.model.Authority;
 import com.example.eindprojectbedc.model.Review;
 import com.example.eindprojectbedc.model.TipAmsterdam;
+import com.example.eindprojectbedc.model.User;
+import com.example.eindprojectbedc.repository.AuthorityRepository;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
+import com.example.eindprojectbedc.repository.UserRepository;
 import org.apache.tomcat.util.file.ConfigurationSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -24,6 +28,8 @@ import java.util.Optional;
 @Service
 public class TipAmsterdamServiceImp implements TipAmsterdamService {
 
+    AuthorityRepository authorityRepository;
+    UserRepository userRepository;
     private ReviewService reviewService;
     private TipAmsterdamRepository tipAmsterdamRepository;
     Path uploads = Paths.get("./uploads");
@@ -69,6 +75,16 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
     @Override
     public void addTipAmsterdam(TipAmsterdam tipAmsterdam) {
         tipAmsterdamRepository.save(tipAmsterdam);
+    }
+
+    @Override
+    public void addTipAmsterdamAdmin(TipAmsterdam tipAmsterdam) {
+        String username = tipAmsterdam.getUsername();
+        Authority userAuthority = new Authority();
+        String authority = String.valueOf(authorityRepository.getAuthorityByUsername(username));
+        if (authority.equals("ADMIN")) {
+            tipAmsterdamRepository.save(tipAmsterdam);
+        }
     }
 
     public Resource downloadFile(Long id) {

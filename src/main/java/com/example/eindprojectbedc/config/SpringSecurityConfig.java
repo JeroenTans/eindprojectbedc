@@ -21,11 +21,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Autowired
     public CustomUserDetailsService customUserDetailsService;
+
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService);
@@ -42,6 +43,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                                .withUser("@@@@").password("a").roles("ADMIN");
+//    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -50,9 +57,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/authenticate").permitAll()
-                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE,"/api/v1/tips/{id}/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
 //                .antMatchers("http://localhost:3000/link").hasRole("ADMIN")
-                .antMatchers("/api/v1/tips/standardTip_upload").hasRole("ADMIN")
+//                .antMatchers("/api/v1/tips/standardTip_upload").permitAll()
 //                .antMatchers(HttpMethod.GET,"/api/v1/tips/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.GET,"/api/v1/users/**/authorities").hasRole("ADMIN")
                 .anyRequest().permitAll()

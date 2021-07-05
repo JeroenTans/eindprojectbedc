@@ -31,6 +31,7 @@ public class UserController {
 
     @PostMapping(value = "")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
+
         String newUsername = userService.createUser(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
@@ -73,5 +74,4 @@ public class UserController {
         userService.removeAuthority(username, authority);
         return ResponseEntity.noContent().build();
     }
-
 }

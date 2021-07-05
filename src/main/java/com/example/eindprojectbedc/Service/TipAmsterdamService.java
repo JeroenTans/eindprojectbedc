@@ -20,6 +20,8 @@ public interface TipAmsterdamService {
 
     void addTipAmsterdam(TipAmsterdam tipAmsterdam);
 
+    void addTipAmsterdamAdmin(TipAmsterdam tipAmsterdam);
+
     Resource downloadFile(Long id);
 
     List<Object> getAllPublicTipsAmsterdam();

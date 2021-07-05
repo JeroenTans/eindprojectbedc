@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,8 +24,6 @@ import java.util.Optional;
 public class ReviewController {
 
     private final ReviewService reviewService;
-    private TipAmsterdamService tipAmsterdamService;
-    private TipAmsterdamRepository tipAmsterdamRepository;
 
     @Autowired
     public ReviewController(ReviewService reviewService) {
@@ -32,43 +31,27 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<ReviewDto> getAllReviews() {
-        var dtos = new ArrayList<ReviewDto>();
+    public List<Review> getAllReviews() {
+        var reviews = new ArrayList<Review>();
         var allReviews = reviewService.getAllReviews();
 
         for (Review review : allReviews) {
-            dtos.add(ReviewDto.fromReview(review));
+            reviews.add(review);
         }
-        return dtos;
+        return reviews;
     }
 
     @DeleteMapping({"{id}"})
-    public ResponseEntity<Object> deleteReview(@PathVariable("id") Long id) {
+    public ResponseEntity<Object> deleteReview(@PathVariable("id") Long id) throws IOException {
         reviewService.deleteReview(id);
         return ResponseEntity.noContent().build();
     }
 
-//    @GetMapping("/reviews")
-//    public Review getReviewsOfTips(@PathVariable("id") Long id) {
-//        return tipAmsterdamService.getTipAmsterdamById(id).
-//    }
-
     @GetMapping("/{id}")
-    public ReviewDto getReview(@PathVariable("id") Long id) {
+    public Review getReview(@PathVariable("id") Long id) {
         var review = reviewService.getReview(id);
-        return ReviewDto.fromReview(review);
+        return review;
     }
-//
-//    @GetMapping
-//    public List<ReviewDto> getAllReviews() {
-//        var dtos = new ArrayList<ReviewDto>();
-//        var allReviews = reviewService.getAllReviews();
-//
-//        for (Review review : allReviews) {
-//            dtos.add(ReviewDto.fromReview(review));
-//        }
-//        return dtos;
-//    }
 
     @GetMapping("{id}/reviews")
     public List<Review> getReviewsByTipAmsterdamId(@PathVariable("id") Long tipAmsterdamId) {
@@ -76,9 +59,9 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ReviewDto saveReview(@RequestBody ReviewInputDto dto) {
-        var review = reviewService.saveReview(dto.toReview());
-        return ReviewDto.fromReview(review);
+    public Review saveReview(@RequestBody Review reviewOne) {
+        var review = reviewService.saveReview(reviewOne);
+        return review;
     }
 
     @PostMapping("savereview")
@@ -86,25 +69,4 @@ public class ReviewController {
         return reviewService.addReview(reviewRequest);
     }
 
-//    @PostMapping("/review")
-//    public ResponseEntity<Object> addReview(@RequestParam String address,
-//                                            @RequestParam Boolean brokenHeart,
-//                                            @RequestParam String comment,
-//                                            @RequestParam Boolean heart,
-//                                            @RequestParam Long tipAmsterdamId) {
-//        try {
-//            TipAmsterdam tipAmsterdam = tipAmsterdamRepository.getById(tipAmsterdamId);
-//            Review review = new Review();
-//            review.setTipAmsterdam(tipAmsterdam);
-//            review.setBrokenHeart(brokenHeart);
-//            review.setHeart(heart);
-//            review.setComment(comment);
-//            review.setAddress(address);
-//
-//            reviewService.saveReview(review);
-//            return ResponseEntity.noContent().build();
-//        } catch (Exception exception) {
-//            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-//        }
-//    }
 }
