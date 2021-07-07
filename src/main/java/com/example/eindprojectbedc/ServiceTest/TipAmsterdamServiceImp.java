@@ -33,11 +33,6 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         this.tipAmsterdamRepository = tipAmsterdamRepository;
     }
 
-//    public List<Review> getReviewsOfTips (Long id) {
-//        Optional<TipAmsterdam> tipAmsterdam = tipAmsterdamRepository.findById(id);
-//
-//    }
-
     @Override
     public List<TipAmsterdam> getAllTipsAmsterdam() {
         return tipAmsterdamRepository.findAll();

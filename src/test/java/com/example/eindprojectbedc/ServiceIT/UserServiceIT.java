@@ -14,7 +14,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-public class UserServiceIt {
+public class UserServiceIT {
 
     @Autowired
     private UserRepository userRepository;
