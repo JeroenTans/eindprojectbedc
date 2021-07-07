@@ -1,8 +1,6 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.Service.GroupService;
-import com.example.eindprojectbedc.controller.dto.GroupDto;
-import com.example.eindprojectbedc.controller.dto.GroupInputDto;
+import com.example.eindprojectbedc.ServiceTest.GroupService;
 import com.example.eindprojectbedc.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

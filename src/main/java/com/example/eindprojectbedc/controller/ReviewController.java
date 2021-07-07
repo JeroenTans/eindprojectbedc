@@ -1,22 +1,15 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.Service.ReviewService;
-import com.example.eindprojectbedc.Service.TipAmsterdamService;
-import com.example.eindprojectbedc.controller.dto.ReviewDto;
-import com.example.eindprojectbedc.controller.dto.ReviewInputDto;
+import com.example.eindprojectbedc.ServiceTest.ReviewService;
 import com.example.eindprojectbedc.model.Review;
-import com.example.eindprojectbedc.model.TipAmsterdam;
-import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
 import com.example.eindprojectbedc.request.ReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @CrossOrigin(origins = {"*"})
 @RestController

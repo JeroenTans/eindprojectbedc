@@ -1,15 +1,13 @@
 package com.example.eindprojectbedc.controller;
-import com.example.eindprojectbedc.Service.FileStorageService;
-import com.example.eindprojectbedc.Service.TipAmsterdamService;
+import com.example.eindprojectbedc.ServiceTest.FileStorageService;
+import com.example.eindprojectbedc.ServiceTest.TipAmsterdamService;
 import com.example.eindprojectbedc.model.TipAmsterdam;
-import com.example.eindprojectbedc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

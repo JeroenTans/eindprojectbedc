@@ -1,10 +1,8 @@
-package com.example.eindprojectbedc.Service;
+package com.example.eindprojectbedc.ServiceTest;
 
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +16,7 @@ public interface TipAmsterdamService {
 
     void deleteTipAmsterdam(Long id);
 
-    void addTipAmsterdam(TipAmsterdam tipAmsterdam);
+    TipAmsterdam addTipAmsterdam(TipAmsterdam tipAmsterdam);
 
     void addTipAmsterdamAdmin(TipAmsterdam tipAmsterdam);
 
@@ -33,6 +31,6 @@ public interface TipAmsterdamService {
     List<Object> getAllPrivateTipsAmsterdamByUsername(String username);
 
     List<Object> getAllPublicTipsAmsterdamByUsername(String username);
+
 }
 
-//    TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam);

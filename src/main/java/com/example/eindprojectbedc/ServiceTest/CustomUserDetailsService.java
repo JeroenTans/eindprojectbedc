@@ -1,4 +1,4 @@
-package com.example.eindprojectbedc.Service;
+package com.example.eindprojectbedc.ServiceTest;
 
 import com.example.eindprojectbedc.model.Authority;
 import com.example.eindprojectbedc.model.User;
@@ -20,11 +20,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userService;
-
-//    @Autowired
-//    private AuthorityService authorityService;
-
-
 
     @Override
     public UserDetails loadUserByUsername(String username) {

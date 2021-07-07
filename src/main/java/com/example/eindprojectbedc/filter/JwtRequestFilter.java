@@ -1,6 +1,6 @@
 package com.example.eindprojectbedc.filter;
 
-import com.example.eindprojectbedc.Service.CustomUserDetailsService;
+import com.example.eindprojectbedc.ServiceTest.CustomUserDetailsService;
 import com.example.eindprojectbedc.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

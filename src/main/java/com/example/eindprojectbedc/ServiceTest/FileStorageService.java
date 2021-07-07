@@ -1,4 +1,4 @@
-package com.example.eindprojectbedc.Service;
+package com.example.eindprojectbedc.ServiceTest;
 
 import org.springframework.web.multipart.MultipartFile;
 

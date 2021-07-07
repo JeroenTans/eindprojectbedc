@@ -1,4 +1,4 @@
-package com.example.eindprojectbedc.Service;
+package com.example.eindprojectbedc.ServiceTest;
 
 import com.example.eindprojectbedc.exception.NotFoundException;
 import com.example.eindprojectbedc.model.Authority;

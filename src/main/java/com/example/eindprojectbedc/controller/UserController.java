@@ -1,6 +1,6 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.Service.UserService;
+import com.example.eindprojectbedc.ServiceTest.UserService;
 import com.example.eindprojectbedc.exception.NotFoundException;
 import com.example.eindprojectbedc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

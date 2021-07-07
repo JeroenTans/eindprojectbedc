@@ -1,6 +1,6 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.Service.CustomUserDetailsService;
+import com.example.eindprojectbedc.ServiceTest.CustomUserDetailsService;
 import com.example.eindprojectbedc.payload.AuthenticationRequest;
 import com.example.eindprojectbedc.payload.AuthenticationResponse;
 import com.example.eindprojectbedc.utils.JwtUtil;
