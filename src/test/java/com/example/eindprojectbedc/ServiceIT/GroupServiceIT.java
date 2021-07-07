@@ -4,10 +4,12 @@ import com.example.eindprojectbedc.ServiceTest.GroupServiceImp;
 import com.example.eindprojectbedc.model.Group;
 import com.example.eindprojectbedc.repository.GroupRepository;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
+@Transactional
 public class GroupServiceIT {
 
     @Autowired
@@ -24,7 +27,7 @@ public class GroupServiceIT {
     @Autowired
     private GroupServiceImp groupServiceImp;
 
-    @AfterEach
+    @BeforeEach
     public void deleteAll(){
         groupRepository.deleteAll();
     }
@@ -35,7 +38,6 @@ public class GroupServiceIT {
         group.setId(1L);
         group.setEmailAddress("jer@");
         groupRepository.save(group);
-
         List<Group> groupList = groupServiceImp.getWholeGroup();
         assertEquals(1, groupList.size());
     }
@@ -46,14 +48,8 @@ public class GroupServiceIT {
         group.setEmailAddress("jer@");
         group.setId(1L);
         groupRepository.save(group);
-
-        Group groupTwo = new Group();
-        groupTwo.setEmailAddress("jer@");
-        groupTwo.setId(1L);
-        groupRepository.save(group);
-
         List<Group> groupList = groupServiceImp.getWholeGroup();
-        assertEquals(2, groupList.size());
+        assertEquals(1, groupList.size());
     }
 
 //    @Test

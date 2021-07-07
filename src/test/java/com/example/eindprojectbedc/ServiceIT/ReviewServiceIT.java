@@ -5,15 +5,19 @@ import com.example.eindprojectbedc.model.Review;
 import com.example.eindprojectbedc.repository.ReviewRepository;
 import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.transaction.AfterTransaction;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@Transactional
 public class ReviewServiceIT {
 
     @Autowired
@@ -22,7 +26,7 @@ public class ReviewServiceIT {
     @Autowired
     private ReviewServiceImp reviewServiceImp;
 
-    @AfterEach
+    @BeforeEach
     public void deleteAll(){
         reviewRepository.deleteAll();
     }
@@ -34,7 +38,6 @@ public class ReviewServiceIT {
         review.setAddress("Zaagmolenstraat");
         review.setComment("erg mooi");
         reviewRepository.save(review);
-
         List<Review> reviewList = reviewServiceImp.getAllReviews();
         assertEquals(1, reviewList.size());
     }
@@ -46,15 +49,8 @@ public class ReviewServiceIT {
         review.setAddress("Zaagmolenstraat");
         review.setComment("erg mooi");
         reviewRepository.save(review);
-
-        Review reviewTwo = new Review();
-        reviewTwo.setId(1L);
-        reviewTwo.setAddress("Zaagmolenstraat");
-        reviewTwo.setComment("erg mooi");
-        reviewRepository.save(reviewTwo);
-
         List<Review> reviewList = reviewRepository.findAll();
-        assertEquals(2, reviewList.size());
+        assertEquals(1, reviewList.size());
     }
 
 }

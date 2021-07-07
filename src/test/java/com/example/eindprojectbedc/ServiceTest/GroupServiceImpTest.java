@@ -1,5 +1,6 @@
 package com.example.eindprojectbedc.ServiceTest;
 
+import com.example.eindprojectbedc.exception.NotFoundException;
 import com.example.eindprojectbedc.model.Group;
 import com.example.eindprojectbedc.repository.GroupRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,25 +32,14 @@ class GroupServiceImpTest {
     }
 
     @Test
-    public void testGetWholeGroup(){
+    public void testGetWholeGroup() {
         when(groupRepository.findAll()).thenReturn(List.of(new Group(), new Group()));
         List<Group> groupList = groupServiceImp.getWholeGroup();
         assertEquals(2, groupList.size());
     }
 
     @Test
-    public void testGetGroup(){
-        Group group = new Group();
-        group.setId(1L);
-        Long id = group.getId();
-        when(groupRepository.findById(id)).thenReturn(Optional.of(group));
-        Optional<Group> groupOptional = Optional.ofNullable(groupServiceImp.getGroup(id));
-        assertTrue(groupOptional.isPresent());
-        assertEquals(id, groupOptional.get().getId());
-    }
-
-    @Test
-    public void testSaveGroup(){
+    public void testSaveGroup() {
         Long id = 3L;
         Group testGroup = new Group();
         when(groupRepository.save(testGroup)).thenAnswer(inv -> {
@@ -62,11 +52,21 @@ class GroupServiceImpTest {
     }
 
     @Test
-    public void testDeleteGroup(){
+    public void testDeleteGroup() {
         Group group = new Group();
         group.setId(1L);
         groupServiceImp.deleteGroup(group.getId());
         verify(groupRepository).deleteById(group.getId());
     }
 
+    @Test
+    public void testGetGroup() {
+        Group group = new Group();
+        group.setId(1L);
+        Long id = group.getId();
+        when(groupRepository.findById(id)).thenReturn(Optional.of(group));
+        Optional<Group> groupOptional = Optional.ofNullable(groupServiceImp.getGroup(id));
+        assertTrue(groupOptional.isPresent());
+        assertEquals(id, groupOptional.get().getId());
+    }
 }

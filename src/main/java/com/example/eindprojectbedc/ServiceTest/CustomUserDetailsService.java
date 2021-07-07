@@ -39,3 +39,21 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(username, password, grantedAuthorities);
     }
 }
+//    @Override
+//    public UserDetails loadUserByUsername(String username) {
+//        Optional<User> user = userService.getUser(username);
+//        if (user == null) {
+//            throw new UsernameNotFoundException(username);
+//        }
+//
+//        String password = user.get().getPassword();
+//
+//        Set<Authority> authorities = user.get().getAuthorities();
+//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+//        for (Authority authority: authorities) {
+//            grantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
+//        }
+//
+//        return new org.springframework.security.core.userdetails.User(username, password, grantedAuthorities);
+//    }
+//}
