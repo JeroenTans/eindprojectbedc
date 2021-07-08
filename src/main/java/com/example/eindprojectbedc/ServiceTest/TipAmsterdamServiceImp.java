@@ -34,6 +34,26 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
     }
 
     @Override
+    public TipAmsterdam addUsernameToTipAmsterdam(Long id, String username) {
+        if (!tipAmsterdamRepository.existsById(id))throw new NotFoundException();
+        TipAmsterdam tipAmsterdam = tipAmsterdamRepository.getById(id);
+        TipAmsterdam newTipAmsterdam = new TipAmsterdam();
+
+        newTipAmsterdam.setUsername(username);
+        newTipAmsterdam.setStandardTip(tipAmsterdam.isStandardTip());
+        newTipAmsterdam.setPrivateTip(tipAmsterdam.isPrivateTip());
+        newTipAmsterdam.setPublicTip(tipAmsterdam.isPublicTip());
+        newTipAmsterdam.setAddress(tipAmsterdam.getAddress());
+        newTipAmsterdam.setExplanation(tipAmsterdam.getExplanation());
+        newTipAmsterdam.setReceivedTip(true);
+        tipAmsterdam.setSendTip(true);
+        newTipAmsterdam.setPicturePath(tipAmsterdam.getPicturePath());
+
+        return tipAmsterdamRepository.save(newTipAmsterdam);
+
+    }
+
+    @Override
     public List<TipAmsterdam> getAllTipsAmsterdam() {
         return tipAmsterdamRepository.findAll();
     }
@@ -53,12 +73,6 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         Optional<TipAmsterdam> tipAmsterdam = tipAmsterdamRepository.findById(id);
         return tipAmsterdam;
     }
-
-//    public Optional<TipAmsterdam> getTwoTipsAmsterdamById(Long idOne, Long idTwo) {
-//        if (!tipAmsterdamRepository.existsById(idOne) && !tipAmsterdamRepository.existsById(idTwo)) throw new NotFoundException();
-//        Optional<TipAmsterdam> twoTipsAmsterdam = tipAmsterdamRepository.findTipAmsterdamByIdAndId(idOne, idTwo);
-//        return twoTipsAmsterdam;
-//    }
 
     @Override
     public void deleteTipAmsterdam(Long id) {
@@ -99,6 +113,21 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
             throw new NotFoundException();
         }
         return null;
+    }
+
+    @Override
+    public List<TipAmsterdam> getAllSendTips(String username) {
+        return tipAmsterdamRepository.findTipAmsterdamBySendTipTrueAndUsername(username);
+    }
+
+    @Override
+    public List<TipAmsterdam> getAllGroupTips(String groupName) {
+        return tipAmsterdamRepository.findTipAmsterdamByGroupName(groupName);
+    }
+
+    @Override
+    public List<TipAmsterdam> getAllTradedTips(String username) {
+        return tipAmsterdamRepository.findTipAmsterdamByReceivedTipTrueAndUsername(username);
     }
 
     @Override

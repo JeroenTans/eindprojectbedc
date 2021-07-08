@@ -12,4 +12,7 @@ public interface TipAmsterdamRepository extends JpaRepository<TipAmsterdam, Long
 //    List<TipAmsterdam> findTipAmsterdamByIdAndSecond();
     TipAmsterdam findTipAmsterdamById (Long id);
     List<TipAmsterdam> findTipAmsterdamsByUsername(String username);
+    List<TipAmsterdam> findTipAmsterdamBySendTipTrueAndUsername(String username);
+    List<TipAmsterdam> findTipAmsterdamByReceivedTipTrueAndUsername(String username);
+    List<TipAmsterdam> findTipAmsterdamByGroupName(String groupName);
 }

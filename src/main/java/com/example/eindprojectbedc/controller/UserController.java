@@ -40,6 +40,12 @@ public class UserController {
         return ResponseEntity.created(location).build();
     }
 
+    @PostMapping("setGroupName/{username}")
+    public ResponseEntity<Object> setGroupNameByUsername(@PathVariable("username") String username){
+        return userService.addGroupName(username);
+    }
+
+
     @PutMapping(value = "/{username}")
     public ResponseEntity<Object> updateUser(@PathVariable("username") String username, @RequestBody User user) {
         userService.updateUser(username, user);

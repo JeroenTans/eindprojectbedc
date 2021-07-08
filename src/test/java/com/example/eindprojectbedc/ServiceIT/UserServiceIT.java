@@ -1,21 +1,12 @@
 package com.example.eindprojectbedc.ServiceIT;
 
 import com.example.eindprojectbedc.ServiceTest.UserServiceImp;
-import com.example.eindprojectbedc.model.Authority;
-import com.example.eindprojectbedc.model.User;
 import com.example.eindprojectbedc.repository.UserRepository;
-import com.example.eindprojectbedc.utils.RandomStringGenerator;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

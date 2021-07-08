@@ -24,11 +24,17 @@ public class TipAmsterdam {
 
     private String explanation;
 
+    private String groupName;
+
     private boolean isPrivateTip;
 
     private boolean isPublicTip;
 
     private boolean isStandardTip;
+
+    private boolean receivedTip = false;
+
+    private boolean sendTip;
 
     @OneToMany(mappedBy = "tipAmsterdam",
             targetEntity = com.example.eindprojectbedc.model.Review.class,
@@ -48,6 +54,26 @@ public class TipAmsterdam {
         this.isPrivateTip = isPrivateTip;
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public boolean isSendTip() {
+        return sendTip;
+    }
+    public void setSendTip(boolean sendTip) {
+        this.sendTip = sendTip;
+    }
+    public boolean isReceivedTip() {
+        return receivedTip;
+    }
+    public void setReceivedTip(boolean receivedTip) {
+        this.receivedTip = receivedTip;
+    }
     public String getUsername() {
         return username;
     }

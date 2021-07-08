@@ -3,17 +3,13 @@ package com.example.eindprojectbedc.ServiceIT;
 import com.example.eindprojectbedc.ServiceTest.TipAmsterdamServiceImp;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
-import org.checkerframework.checker.nullness.Opt;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

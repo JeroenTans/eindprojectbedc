@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface TipAmsterdamService {
 
+    public TipAmsterdam addUsernameToTipAmsterdam(Long id, String username);
+
     List<TipAmsterdam> getAllTipsAmsterdam();
 
     TipAmsterdam getTipAmsterdam(Long id);
@@ -21,6 +23,12 @@ public interface TipAmsterdamService {
     void addTipAmsterdamAdmin(TipAmsterdam tipAmsterdam);
 
     Resource downloadFile(Long id);
+
+    List<TipAmsterdam> getAllSendTips(String username);
+
+    List<TipAmsterdam> getAllGroupTips(String groupName);
+
+    List<TipAmsterdam> getAllTradedTips(String username);
 
     List<Object> getAllPublicTipsAmsterdam();
 

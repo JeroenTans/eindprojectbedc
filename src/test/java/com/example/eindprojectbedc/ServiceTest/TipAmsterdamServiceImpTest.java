@@ -1,7 +1,6 @@
 package com.example.eindprojectbedc.ServiceTest;
 
 import com.example.eindprojectbedc.exception.IdNotFoundException;
-import com.example.eindprojectbedc.model.Authority;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import com.example.eindprojectbedc.model.User;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;

@@ -6,6 +6,7 @@ import com.example.eindprojectbedc.model.User;
 import com.example.eindprojectbedc.repository.UserRepository;
 import com.example.eindprojectbedc.utils.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,14 @@ public class UserServiceImp implements UserService{
     @Override
     public boolean userExists(String username) {
         return userRepository.existsById(username);
+    }
+
+    @Override
+    public ResponseEntity<Object> addGroupName(String username) {
+        User user = userRepository.getById(username);
+        user.setGroupName("Tipsy");
+        userRepository.save(user);
+        return null;
     }
 
     @Override

@@ -1,24 +1,16 @@
 package com.example.eindprojectbedc.Controller;
 
 import com.example.eindprojectbedc.ServiceTest.GroupService;
-import com.example.eindprojectbedc.model.Group;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-
-import java.util.Arrays;
-import java.util.List;
 
 import static org.assertj.core.api.BDDAssumptions.given;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest
 public class GroupControllerTest {

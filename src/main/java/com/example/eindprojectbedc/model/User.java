@@ -28,6 +28,8 @@ public class User {
     @Column
     private String residence;
 
+    private String groupName;
+
     @OneToMany(
             targetEntity = com.example.eindprojectbedc.model.Authority.class,
             mappedBy = "username",
@@ -44,6 +46,12 @@ public class User {
             fetch = FetchType.EAGER)
     private Set<TipAmsterdam> tipAmsterdams = new HashSet<>();
 
+    public String getGroupName() {
+        return groupName;
+    }
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
     public Set<TipAmsterdam> getTipAmsterdams() {
         return tipAmsterdams;
     }

@@ -3,13 +3,10 @@ package com.example.eindprojectbedc.ServiceIT;
 import com.example.eindprojectbedc.ServiceTest.ReviewServiceImp;
 import com.example.eindprojectbedc.model.Review;
 import com.example.eindprojectbedc.repository.ReviewRepository;
-import org.checkerframework.checker.units.qual.A;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.transaction.AfterTransaction;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;

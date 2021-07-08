@@ -53,6 +53,14 @@ public class TipAmsterdamController {
         return new ResponseEntity<>(tipAmsterdam, HttpStatus.OK);
     }
 
+    @GetMapping("getSendTips/{username}")
+    public List<TipAmsterdam> getAllSendTips(@PathVariable("username") String username){return tipAmsterdamService.getAllSendTips(username);}
+
+    @GetMapping("getAllTradedTips/{username}")
+    public List<TipAmsterdam> getAllTradedTips(@PathVariable("username") String username){
+        return tipAmsterdamService.getAllTradedTips(username);
+    }
+
     @GetMapping("publicTip")
     public List<Object> getAllPublicTipsAmsterdam() {
         return tipAmsterdamService.getAllPublicTipsAmsterdam();
@@ -73,6 +81,11 @@ public class TipAmsterdamController {
         return tipAmsterdamService.getAllPrivateTipsAmsterdamByUsername(username);
     }
 
+    @GetMapping("getGroupTips/{groupName}")
+    public List<TipAmsterdam> getAllGroupTips(@PathVariable("groupName") String groupName){
+        return tipAmsterdamService.getAllGroupTips(groupName);
+    }
+
     @GetMapping("{username}/publicTip")
     public List<Object> getAllPublicTipsByUsername(@PathVariable("username") String username) {
         return tipAmsterdamService.getAllPublicTipsAmsterdamByUsername(username);
@@ -86,13 +99,20 @@ public class TipAmsterdamController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("addUserAndGetTipById/{username}/{id}")
+    public TipAmsterdam addUserToTipAmsterdam(@PathVariable("username") String username, @PathVariable("id") Long id){
+        return tipAmsterdamService.addUsernameToTipAmsterdam(id, username);
+    }
+
     @PostMapping(value = "/tip_upload")
     public ResponseEntity<Object> addTip(@RequestParam String address,
                                          @RequestParam String explanation,
+                                         @RequestParam String username,
+                                         @RequestParam String groupName,
                                          @RequestParam boolean privateTip,
                                          @RequestParam boolean publicTip,
                                          @RequestParam boolean standardTip,
-                                         @RequestParam String username,
+                                         @RequestParam boolean sendTip,
                                          @RequestParam MultipartFile picturePath) {
         try {
             fileStorageService.uploadFile(picturePath);
@@ -104,6 +124,8 @@ public class TipAmsterdamController {
             tipAmsterdam.setPrivateTip(privateTip);
             tipAmsterdam.setStandardTip(standardTip);
             tipAmsterdam.setUsername(username);
+            tipAmsterdam.setSendTip(sendTip);
+            tipAmsterdam.setGroupName(groupName);
             tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
 
             tipAmsterdamService.addTipAmsterdam(tipAmsterdam);
