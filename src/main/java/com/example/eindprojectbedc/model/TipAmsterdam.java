@@ -32,6 +32,8 @@ public class TipAmsterdam {
 
     private boolean isStandardTip;
 
+    private boolean isGroupTip = false;
+
     private boolean receivedTip = false;
 
     private boolean sendTip;
@@ -45,13 +47,14 @@ public class TipAmsterdam {
 
     public TipAmsterdam() {
     }
-    public TipAmsterdam(String address, String explanation, String picturePath, boolean isStandardTip, boolean isPublicTip, boolean isPrivateTip) {
+    public TipAmsterdam(boolean isGroupTip, String address, String explanation, String picturePath, boolean isStandardTip, boolean isPublicTip, boolean isPrivateTip) {
         this.address = address;
         this.explanation = explanation;
         this.picturePath = picturePath;
         this.isStandardTip = isStandardTip;
         this.isPublicTip = isPublicTip;
         this.isPrivateTip = isPrivateTip;
+        this.isGroupTip = isGroupTip;
     }
 
     public String getGroupName() {
@@ -62,6 +65,12 @@ public class TipAmsterdam {
         this.groupName = groupName;
     }
 
+    public boolean isGroupTip() {
+        return isGroupTip;
+    }
+    public void setGroupTip(boolean groupTip) {
+        isGroupTip = groupTip;
+    }
     public boolean isSendTip() {
         return sendTip;
     }

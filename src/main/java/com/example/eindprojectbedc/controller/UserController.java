@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -22,6 +23,11 @@ public class UserController {
     @GetMapping(value = "")
     public ResponseEntity<Object> getUsers() {
         return ResponseEntity.ok().body(userService.getUsers());
+    }
+
+    @GetMapping(value = "/getUsersByGroupName/{groupName}")
+    public List<User> getUsersByGroupName(@PathVariable("groupName") String groupName) {
+        return userService.getUsersByGroupName(groupName);
     }
 
     @GetMapping(value = "/{username}")

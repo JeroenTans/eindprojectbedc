@@ -81,10 +81,15 @@ public class TipAmsterdamController {
         return tipAmsterdamService.getAllPrivateTipsAmsterdamByUsername(username);
     }
 
-    @GetMapping("getGroupTips/{groupName}")
-    public List<TipAmsterdam> getAllGroupTips(@PathVariable("groupName") String groupName){
+    @GetMapping("groupTips/{groupName}")
+    public List<TipAmsterdam> getAllGroupTipsByGroupName (@PathVariable("groupName") String groupName){
         return tipAmsterdamService.getAllGroupTips(groupName);
     }
+
+//    @GetMapping("getGroupTips/{groupName}")
+//    public List<TipAmsterdam> getAllGroupTips(@PathVariable("groupName") String groupName){
+//        return tipAmsterdamService.getAllGroupTips(groupName);
+//    }
 
     @GetMapping("{username}/publicTip")
     public List<Object> getAllPublicTipsByUsername(@PathVariable("username") String username) {
@@ -113,6 +118,7 @@ public class TipAmsterdamController {
                                          @RequestParam boolean publicTip,
                                          @RequestParam boolean standardTip,
                                          @RequestParam boolean sendTip,
+                                         @RequestParam boolean groupTip,
                                          @RequestParam MultipartFile picturePath) {
         try {
             fileStorageService.uploadFile(picturePath);
@@ -126,6 +132,7 @@ public class TipAmsterdamController {
             tipAmsterdam.setUsername(username);
             tipAmsterdam.setSendTip(sendTip);
             tipAmsterdam.setGroupName(groupName);
+            tipAmsterdam.setGroupTip(groupTip);
             tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
 
             tipAmsterdamService.addTipAmsterdam(tipAmsterdam);
