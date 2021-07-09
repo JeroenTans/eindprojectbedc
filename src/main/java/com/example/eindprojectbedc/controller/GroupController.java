@@ -29,6 +29,11 @@ public class GroupController {
         return groupService.getGroup(id);
     }
 
+//    @PostMapping("/addGroupMember")
+//    public Group addGroupMember(@RequestBody Group groupOne){
+//        return groupService.saveGroup(groupOne);
+//    }
+
     @PostMapping
     public Group saveGroup(@RequestBody Group groupOne) {
         var group = groupService.saveGroup(groupOne);

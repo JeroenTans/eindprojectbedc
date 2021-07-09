@@ -32,6 +32,7 @@ public class AuthenticatedController {
     @Autowired
     private CustomUserDetailsService userDetailsService;
 
+    @Autowired
     UserRepository userRepository;
 
     @Autowired
@@ -50,14 +51,13 @@ public class AuthenticatedController {
 
         String username = authenticationRequest.getUsername();
         String password = authenticationRequest.getPassword();
-        User user = new User();
+        User user = userRepository.getById(username);
         String authority = user.getAuthority();
-//        String authority = String.valueOf(userService.getAuthorities(username));
+        String groupName = user.getGroupName();
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+        authenticationResponse.setGroupName(groupName);
         authenticationResponse.setAuthorityRole(authority);
         authenticationResponse.setUsername(username);
-//        User user = userRepository.getById(username);
-//        String authority = user.getAuthority();
 
         try {
             authenticationManager.authenticate(
@@ -75,7 +75,6 @@ public class AuthenticatedController {
 
         authenticationResponse.setJwt(jwt);
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt, username, authority));
-//        return ResponseEntity.ok(authenticationResponse);
+        return ResponseEntity.ok(new AuthenticationResponse(jwt, username, authority, groupName));
     }
 }

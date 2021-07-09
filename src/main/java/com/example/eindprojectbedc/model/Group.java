@@ -3,6 +3,8 @@ package com.example.eindprojectbedc.model;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "group_members")
@@ -16,6 +18,29 @@ public class Group {
     
     private String groupName;
 
+    @OneToMany(
+            targetEntity = com.example.eindprojectbedc.model.User.class,
+            mappedBy = "email",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<User> groupMembers = new HashSet<>();
+
+//    @OneToMany(
+//            targetEntity = com.example.eindprojectbedc.model.TipAmsterdam.class,
+//            mappedBy = "username",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true,
+//            fetch = FetchType.EAGER)
+//    private Set<User> groupTipAmsterdams = new HashSet<>();
+
+//    @OneToMany(
+//            targetEntity = com.example.eindprojectbedc.model.TipAmsterdam.class,
+//            mappedBy = "username",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true,
+//            fetch = FetchType.EAGER)
+//    private Set<TipAmsterdam> tipAmsterdams = new HashSet<>();
 
     public Group() {
     }
