@@ -55,7 +55,9 @@ public class UserServiceImp implements UserService{
 //        user.addAuthority(authority);
         user.setApikey(randomString);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAuthority("ADMIN");
         User newUser = userRepository.save(user);
+
         return newUser.getUsername();
     }
 
@@ -82,8 +84,10 @@ public class UserServiceImp implements UserService{
     @Override
     public void addAuthority(String username, String authority) {
         if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
-        User user = userRepository.findById(username).get();
+//        User user = userRepository.findById(username).get();
+        User user = userRepository.getById(username);
         user.addAuthority(new Authority(username, authority));
+        user.setAuthority(authority);
         userRepository.save(user);
     }
 

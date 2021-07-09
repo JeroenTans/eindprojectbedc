@@ -30,6 +30,8 @@ public class User {
 
     private String groupName;
 
+    private String authority;
+
     @OneToMany(
             targetEntity = com.example.eindprojectbedc.model.Authority.class,
             mappedBy = "username",
@@ -45,6 +47,14 @@ public class User {
             orphanRemoval = true,
             fetch = FetchType.EAGER)
     private Set<TipAmsterdam> tipAmsterdams = new HashSet<>();
+
+    public String getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
 
     public String getGroupName() {
         return groupName;

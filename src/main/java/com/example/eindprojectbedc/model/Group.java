@@ -13,14 +13,24 @@ public class Group {
     private long id;
 
     private String emailAddress;
+    
+    private String groupName;
+
 
     public Group() {
     }
 
-    public Group(String emailAddress) {
+    public Group(String emailAddress, String groupName) {
         this.emailAddress = emailAddress;
+        this.groupName = groupName;
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
     public long getId() {
         return id;
     }
