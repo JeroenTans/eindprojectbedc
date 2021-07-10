@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -56,7 +57,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/authenticate").permitAll()
-//                .antMatchers(HttpMethod.DELETE,"/api/v1/tips/{id}/**").hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
 //                .antMatchers("http://localhost:3000/link").hasRole("ADMIN")
 //                .antMatchers("/api/v1/tips/standardTip_upload").permitAll()
