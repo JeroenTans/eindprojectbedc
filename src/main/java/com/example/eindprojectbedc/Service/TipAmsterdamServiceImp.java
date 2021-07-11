@@ -36,6 +36,7 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
     @Override
     public TipAmsterdam addUsernameToTipAmsterdam(Long id, String username) {
         if (!tipAmsterdamRepository.existsById(id))throw new NotFoundException();
+
         TipAmsterdam tipAmsterdam = tipAmsterdamRepository.getById(id);
         TipAmsterdam newTipAmsterdam = new TipAmsterdam();
 

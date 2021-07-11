@@ -86,6 +86,7 @@ public class UserServiceImp implements UserService{
         if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
         User user = userRepository.getById(username);
         user.addAuthority(new Authority(username, authority));
+//        user.addAuthority(new Authority(username, authority == "ROLE_USER" ? "ROLE_USER": ""));
         user.setAuthority(authority);
         userRepository.save(user);
     }
