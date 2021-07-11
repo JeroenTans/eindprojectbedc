@@ -1,9 +1,8 @@
-package com.example.eindprojectbedc.ServiceTest;
+package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.model.Authority;
 import com.example.eindprojectbedc.model.User;
 import org.springframework.http.ResponseEntity;
-import org.w3c.dom.stylesheets.LinkStyle;
 
 import java.util.Collection;
 import java.util.List;

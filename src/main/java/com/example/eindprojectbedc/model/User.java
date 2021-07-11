@@ -28,8 +28,10 @@ public class User {
     @Column
     private String residence;
 
+    @Column
     private String groupName;
 
+    @Column
     private String authority;
 
     @OneToMany(
@@ -51,11 +53,9 @@ public class User {
     public String getAuthority() {
         return authority;
     }
-
     public void setAuthority(String authority) {
         this.authority = authority;
     }
-
     public String getGroupName() {
         return groupName;
     }

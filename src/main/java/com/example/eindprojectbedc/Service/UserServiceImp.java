@@ -1,4 +1,4 @@
-package com.example.eindprojectbedc.ServiceTest;
+package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.exception.NotFoundException;
 import com.example.eindprojectbedc.model.Authority;
@@ -53,9 +53,6 @@ public class UserServiceImp implements UserService{
     @Override
     public String createUser(User user) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
-//        Authority authority = new Authority();
-//        authority.setAuthority("USER");
-//        user.addAuthority(authority);
         user.setApikey(randomString);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setAuthority("ROLE_ADMIN");

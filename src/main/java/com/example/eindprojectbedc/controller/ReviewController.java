@@ -1,6 +1,6 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.ServiceTest.ReviewService;
+import com.example.eindprojectbedc.Service.ReviewService;
 import com.example.eindprojectbedc.model.Review;
 import com.example.eindprojectbedc.request.ReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +34,6 @@ public class ReviewController {
         return reviews;
     }
 
-    @DeleteMapping({"{id}"})
-    public ResponseEntity<Object> deleteReview(@PathVariable("id") Long id) throws IOException {
-        reviewService.deleteReview(id);
-        return ResponseEntity.noContent().build();
-    }
-
     @GetMapping("/{id}")
     public Review getReview(@PathVariable("id") Long id) {
         var review = reviewService.getReview(id);
@@ -60,6 +54,12 @@ public class ReviewController {
     @PostMapping("savereview")
     public Review addReview (@RequestBody ReviewRequest reviewRequest){
         return reviewService.addReview(reviewRequest);
+    }
+
+    @DeleteMapping({"{id}"})
+    public ResponseEntity<Object> deleteReview(@PathVariable("id") Long id) throws IOException {
+        reviewService.deleteReview(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.eindprojectbedc.ServiceTest;
+package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.model.Group;
 import com.example.eindprojectbedc.repository.GroupRepository;
@@ -36,19 +36,19 @@ class GroupServiceImpTest {
         List<Group> groupList = groupServiceImp.getWholeGroup();
         assertEquals(2, groupList.size());
     }
-
-    @Test
-    public void testSaveGroup() {
-        Long id = 3L;
-        Group testGroup = new Group();
-        when(groupRepository.save(testGroup)).thenAnswer(inv -> {
-            Group group1 = inv.getArgument(0);
-            group1.setId(id);
-            return group1;
-        });
-        Group created = groupServiceImp.saveGroup(testGroup);
-        assertEquals(3L, created.getId());
-    }
+//
+//    @Test
+//    public void testSaveGroup() {
+//        Long id = 3L;
+//        Group testGroup = new Group();
+//        when(groupRepository.save(testGroup)).thenAnswer(inv -> {
+//            Group group1 = inv.getArgument(0);
+//            group1.setId(id);
+//            return group1;
+//        });
+//        Group created = groupServiceImp.saveGroup(testGroup);
+//        assertEquals(3L, created.getId());
+//    }
 
     @Test
     public void testDeleteGroup() {

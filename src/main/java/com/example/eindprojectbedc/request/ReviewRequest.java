@@ -8,5 +8,4 @@ public class ReviewRequest {
     public boolean heart;
     public String comment;
     public Long tipAmsterdamId;
-
 }

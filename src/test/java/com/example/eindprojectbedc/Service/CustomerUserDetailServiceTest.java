@@ -1,4 +1,4 @@
-package com.example.eindprojectbedc.ServiceTest;
+package com.example.eindprojectbedc.Service;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;

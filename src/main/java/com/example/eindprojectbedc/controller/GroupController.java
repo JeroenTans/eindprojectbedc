@@ -1,6 +1,6 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.ServiceTest.GroupService;
+import com.example.eindprojectbedc.Service.GroupService;
 import com.example.eindprojectbedc.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,11 +28,6 @@ public class GroupController {
     public Group getGroupMember(@PathVariable("id") Long id) {
         return groupService.getGroup(id);
     }
-
-//    @PostMapping("/addGroupMember")
-//    public Group addGroupMember(@RequestBody Group groupOne){
-//        return groupService.saveGroup(groupOne);
-//    }
 
     @PostMapping
     public Group saveGroup(@RequestBody Group groupOne) {

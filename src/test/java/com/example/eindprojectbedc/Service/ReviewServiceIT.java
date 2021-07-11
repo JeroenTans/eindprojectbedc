@@ -1,6 +1,6 @@
-package com.example.eindprojectbedc.ServiceIT;
+package com.example.eindprojectbedc.Service;
 
-import com.example.eindprojectbedc.ServiceTest.ReviewServiceImp;
+import com.example.eindprojectbedc.Service.ReviewServiceImp;
 import com.example.eindprojectbedc.model.Review;
 import com.example.eindprojectbedc.repository.ReviewRepository;
 import org.junit.jupiter.api.BeforeEach;

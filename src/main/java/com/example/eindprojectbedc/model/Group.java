@@ -14,8 +14,10 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String emailAddress;
-    
+
+    @Column
     private String groupName;
 
     @OneToMany(
@@ -25,22 +27,6 @@ public class Group {
             orphanRemoval = true,
             fetch = FetchType.EAGER)
     private Set<User> groupMembers = new HashSet<>();
-
-//    @OneToMany(
-//            targetEntity = com.example.eindprojectbedc.model.TipAmsterdam.class,
-//            mappedBy = "username",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true,
-//            fetch = FetchType.EAGER)
-//    private Set<User> groupTipAmsterdams = new HashSet<>();
-
-//    @OneToMany(
-//            targetEntity = com.example.eindprojectbedc.model.TipAmsterdam.class,
-//            mappedBy = "username",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true,
-//            fetch = FetchType.EAGER)
-//    private Set<TipAmsterdam> tipAmsterdams = new HashSet<>();
 
     public Group() {
     }

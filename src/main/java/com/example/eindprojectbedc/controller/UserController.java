@@ -1,6 +1,6 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.ServiceTest.UserService;
+import com.example.eindprojectbedc.Service.UserService;
 import com.example.eindprojectbedc.exception.NotFoundException;
 import com.example.eindprojectbedc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,12 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUser(username));
     }
 
+    @GetMapping(value = "/{username}/authorities")
+    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
+        return ResponseEntity.ok().body(userService.getAuthorities(username));
+    }
+
+
     @PostMapping(value = "")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
 
@@ -44,6 +50,18 @@ public class UserController {
                 .buildAndExpand(newUsername).toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @PostMapping(value = "/{username}/authorities")
+    public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
+        try {
+            String authorityName = (String) fields.get("authority");
+            userService.addAuthority(username, authorityName);
+            return ResponseEntity.noContent().build();
+        }
+        catch (Exception ex) {
+            throw new NotFoundException();
+        }
     }
 
     @PostMapping("setGroupName/{username}")
@@ -62,23 +80,6 @@ public class UserController {
     public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
         userService.deleteUser(username);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(value = "/{username}/authorities")
-    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userService.getAuthorities(username));
-    }
-
-    @PostMapping(value = "/{username}/authorities")
-    public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
-        try {
-            String authorityName = (String) fields.get("authority");
-            userService.addAuthority(username, authorityName);
-            return ResponseEntity.noContent().build();
-        }
-        catch (Exception ex) {
-            throw new NotFoundException();
-        }
     }
 
     @DeleteMapping(value = "/{username}/authorities/{authority}")

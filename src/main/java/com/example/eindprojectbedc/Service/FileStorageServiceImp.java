@@ -1,4 +1,4 @@
-package com.example.eindprojectbedc.ServiceTest;
+package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.exception.FileStorageException;
 

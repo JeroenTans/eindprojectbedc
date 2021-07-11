@@ -1,9 +1,7 @@
 package com.example.eindprojectbedc.controller;
 
-import com.example.eindprojectbedc.ServiceTest.CustomUserDetailsService;
-import com.example.eindprojectbedc.ServiceTest.UserService;
-import com.example.eindprojectbedc.ServiceTest.UserServiceImp;
-import com.example.eindprojectbedc.model.Authority;
+import com.example.eindprojectbedc.Service.CustomUserDetailsService;
+import com.example.eindprojectbedc.Service.UserServiceImp;
 import com.example.eindprojectbedc.model.User;
 import com.example.eindprojectbedc.payload.AuthenticationRequest;
 import com.example.eindprojectbedc.payload.AuthenticationResponse;
@@ -19,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.Set;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")

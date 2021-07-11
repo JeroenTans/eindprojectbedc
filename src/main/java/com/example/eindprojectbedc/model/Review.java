@@ -11,12 +11,16 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String address;
 
+    @Column
     private String comment;
 
+    @Column
     private Boolean heart;
 
+    @Column
     private Boolean brokenHeart;
 
     @Column(name = "tip_amsterdam_id")
@@ -42,18 +46,6 @@ public class Review {
     public void setTipAmsterdamId(Long tipAmsterdamId) {
         this.tipAmsterdamId = tipAmsterdamId;
     }
-    //    public Long getTipAmsterdamId() {
-//        return tipAmsterdamId;
-//    }
-//    public void setTipAmsterdamId(Long tipAmsterdamId) {
-//        this.tipAmsterdamId = tipAmsterdamId;
-////    }
-//    public TipAmsterdam getTipAmsterdam() {
-//        return tipAmsterdam;
-//    }
-//    public void setTipAmsterdam(TipAmsterdam tipAmsterdam) {
-//        this.tipAmsterdam = tipAmsterdam;
-//    }
     public Boolean getBrokenHeart() {
         return brokenHeart;
     }

@@ -1,6 +1,6 @@
 package com.example.eindprojectbedc.controller;
-import com.example.eindprojectbedc.ServiceTest.FileStorageService;
-import com.example.eindprojectbedc.ServiceTest.TipAmsterdamService;
+import com.example.eindprojectbedc.Service.FileStorageService;
+import com.example.eindprojectbedc.Service.TipAmsterdamService;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -86,11 +86,6 @@ public class TipAmsterdamController {
         return tipAmsterdamService.getAllGroupTips(groupName);
     }
 
-//    @GetMapping("getGroupTips/{groupName}")
-//    public List<TipAmsterdam> getAllGroupTips(@PathVariable("groupName") String groupName){
-//        return tipAmsterdamService.getAllGroupTips(groupName);
-//    }
-
     @GetMapping("{username}/publicTip")
     public List<Object> getAllPublicTipsByUsername(@PathVariable("username") String username) {
         return tipAmsterdamService.getAllPublicTipsAmsterdamByUsername(username);
@@ -143,35 +138,3 @@ public class TipAmsterdamController {
         }
     }
 }
-//    @PostMapping(value = "/standardTip_upload")
-//    public ResponseEntity<Object> addStandardTip(
-//                                         @RequestParam String address,
-//                                         @RequestParam String explanation,
-//                                         @RequestParam boolean privateTip,
-//                                         @RequestParam boolean publicTip,
-//                                         @RequestParam boolean standardTip,
-//                                         @RequestParam String username,
-//                                         @RequestParam MultipartFile picturePath) {
-//        try {
-//            fileStorageService.uploadFile(picturePath);
-//
-//            TipAmsterdam tipAmsterdam = new TipAmsterdam();
-////            User user = new User();
-////            user.getAuthorities();
-//            tipAmsterdam.setAddress(address);
-//            tipAmsterdam.setExplanation(explanation);
-//            tipAmsterdam.setPublicTip(publicTip);
-//            tipAmsterdam.setPrivateTip(privateTip);
-//            tipAmsterdam.setStandardTip(standardTip);
-//            tipAmsterdam.setUsername(username);
-//            tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
-//
-//            tipAmsterdamService.addTipAmsterdamAdmin(tipAmsterdam);
-//
-//            return ResponseEntity.noContent().build();
-//        } catch (Exception exception) {
-//            return new ResponseEntity<>(HttpStatus.I_AM_A_TEAPOT);
-//        }
-//    }
-
-

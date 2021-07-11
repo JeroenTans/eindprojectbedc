@@ -1,6 +1,6 @@
-package com.example.eindprojectbedc.ServiceIT;
+package com.example.eindprojectbedc.Service;
 
-import com.example.eindprojectbedc.ServiceTest.TipAmsterdamServiceImp;
+import com.example.eindprojectbedc.Service.TipAmsterdamServiceImp;
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
 import org.junit.jupiter.api.BeforeEach;

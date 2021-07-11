@@ -20,22 +20,31 @@ public class TipAmsterdam {
     @Column
     private String picturePath;
 
+    @Column
     private String address;
 
+    @Column
     private String explanation;
 
+    @Column
     private String groupName;
 
+    @Column
     private boolean isPrivateTip;
 
+    @Column
     private boolean isPublicTip;
 
+    @Column
     private boolean isStandardTip;
 
+    @Column
     private boolean isGroupTip = false;
 
+    @Column
     private boolean receivedTip = false;
 
+    @Column
     private boolean sendTip;
 
     @OneToMany(mappedBy = "tipAmsterdam",
@@ -60,11 +69,9 @@ public class TipAmsterdam {
     public String getGroupName() {
         return groupName;
     }
-
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-
     public boolean isGroupTip() {
         return isGroupTip;
     }

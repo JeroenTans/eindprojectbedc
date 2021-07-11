@@ -1,4 +1,4 @@
-package com.example.eindprojectbedc.ServiceTest;
+package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.model.Review;
 import com.example.eindprojectbedc.repository.ReviewRepository;
