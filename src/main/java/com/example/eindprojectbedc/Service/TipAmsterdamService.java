@@ -2,32 +2,28 @@ package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.model.TipAmsterdam;
 import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 public interface TipAmsterdamService {
 
+    TipAmsterdam addUsernameToTipAmsterdam(Long id, String username);
     List<TipAmsterdam> getAllTipsAmsterdam();
-
     TipAmsterdam getTipAmsterdam(Long id);
-
     Optional<TipAmsterdam> getTipAmsterdamById(Long id);
-
     void deleteTipAmsterdam(Long id);
-
-    void addTipAmsterdam(TipAmsterdam tipAmsterdam);
-
+    TipAmsterdam addTipAmsterdam(TipAmsterdam tipAmsterdam);
+    void addTipAmsterdamAdmin(TipAmsterdam tipAmsterdam);
     Resource downloadFile(Long id);
-
+    List<TipAmsterdam> getAllSendTips(String username);
+    List<TipAmsterdam> getAllGroupTips(String groupName);
+    List<TipAmsterdam> getAllTradedTips(String username);
     List<Object> getAllPublicTipsAmsterdam();
-
     List<Object> getAllPrivateTipsAmsterdam();
-
     List<Object> getAllStandardTipsAmsterdam();
+    List<Object> getAllPrivateTipsAmsterdamByUsername(String username);
+    List<Object> getAllPublicTipsAmsterdamByUsername(String username);
 
 }
 
-//    TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam);

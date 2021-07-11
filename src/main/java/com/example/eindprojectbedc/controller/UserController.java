@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
@@ -24,36 +25,31 @@ public class UserController {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
+    @GetMapping(value = "/getUsersByGroupName/{groupName}")
+    public List<User> getUsersByGroupName(@PathVariable("groupName") String groupName) {
+        return userService.getUsersByGroupName(groupName);
+    }
+
     @GetMapping(value = "/{username}")
     public ResponseEntity<Object> getUser(@PathVariable("username") String username) {
         return ResponseEntity.ok().body(userService.getUser(username));
     }
 
+    @GetMapping(value = "/{username}/authorities")
+    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
+        return ResponseEntity.ok().body(userService.getAuthorities(username));
+    }
+
+
     @PostMapping(value = "")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
+
         String newUsername = userService.createUser(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{username}")
                 .buildAndExpand(newUsername).toUri();
 
         return ResponseEntity.created(location).build();
-    }
-
-    @PutMapping(value = "/{username}")
-    public ResponseEntity<Object> updateUser(@PathVariable("username") String username, @RequestBody User user) {
-        userService.updateUser(username, user);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping(value = "/{username}")
-    public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
-        userService.deleteUser(username);
-        return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping(value = "/{username}/authorities")
-    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
-        return ResponseEntity.ok().body(userService.getAuthorities(username));
     }
 
     @PostMapping(value = "/{username}/authorities")
@@ -68,10 +64,27 @@ public class UserController {
         }
     }
 
+    @PostMapping("setGroupName/{username}")
+    public ResponseEntity<Object> setGroupNameByUsername(@PathVariable("username") String username){
+        return userService.addGroupName(username);
+    }
+
+
+    @PutMapping(value = "/{username}")
+    public ResponseEntity<Object> updateUser(@PathVariable("username") String username, @RequestBody User user) {
+        userService.updateUser(username, user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping(value = "/{username}")
+    public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
+        userService.deleteUser(username);
+        return ResponseEntity.noContent().build();
+    }
+
     @DeleteMapping(value = "/{username}/authorities/{authority}")
     public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
         userService.removeAuthority(username, authority);
         return ResponseEntity.noContent().build();
     }
-
 }

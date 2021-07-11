@@ -1,3 +1,4 @@
+
 package com.example.eindprojectbedc.model;
 
 import javax.persistence.*;
@@ -35,5 +36,4 @@ public class Authority implements Serializable {
     public void setAuthority(String authority) {
         this.authority = authority;
     }
-
 }

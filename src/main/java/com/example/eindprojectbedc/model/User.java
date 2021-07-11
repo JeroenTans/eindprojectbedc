@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@SuppressWarnings("JpaAttributeTypeInspection")
 @Entity
 @Table(name = "users")
 public class User {
@@ -27,6 +28,12 @@ public class User {
     @Column
     private String residence;
 
+    @Column
+    private String groupName;
+
+    @Column
+    private String authority;
+
     @OneToMany(
             targetEntity = com.example.eindprojectbedc.model.Authority.class,
             mappedBy = "username",
@@ -35,6 +42,32 @@ public class User {
             fetch = FetchType.EAGER)
     private Set<Authority> authorities = new HashSet<>();
 
+    @OneToMany(
+            targetEntity = com.example.eindprojectbedc.model.TipAmsterdam.class,
+            mappedBy = "username",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<TipAmsterdam> tipAmsterdams = new HashSet<>();
+
+    public String getAuthority() {
+        return authority;
+    }
+    public void setAuthority(String authority) {
+        this.authority = authority;
+    }
+    public String getGroupName() {
+        return groupName;
+    }
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+    public Set<TipAmsterdam> getTipAmsterdams() {
+        return tipAmsterdams;
+    }
+    public void setTipAmsterdams(Set<TipAmsterdam> tipAmsterdams) {
+        this.tipAmsterdams = tipAmsterdams;
+    }
     public String getResidence() {
         return residence;
     }
@@ -60,7 +93,6 @@ public class User {
     public void setApikey(String apikey) { this.apikey = apikey; }
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email;}
-
     public Set<Authority> getAuthorities() { return authorities; }
     public void addAuthority(Authority authority) {
         this.authorities.add(authority);

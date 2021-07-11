@@ -1,12 +1,13 @@
 package com.example.eindprojectbedc.controller;
 
 import com.example.eindprojectbedc.Service.ReviewService;
-import com.example.eindprojectbedc.controller.dto.ReviewDto;
-import com.example.eindprojectbedc.controller.dto.ReviewInputDto;
 import com.example.eindprojectbedc.model.Review;
+import com.example.eindprojectbedc.request.ReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,25 +24,42 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<ReviewDto> getAllReviews() {
-        var dtos = new ArrayList<ReviewDto>();
+    public List<Review> getAllReviews() {
+        var reviews = new ArrayList<Review>();
         var allReviews = reviewService.getAllReviews();
 
         for (Review review : allReviews) {
-            dtos.add(ReviewDto.fromReview(review));
+            reviews.add(review);
         }
-        return dtos;
+        return reviews;
     }
 
     @GetMapping("/{id}")
-    public ReviewDto getReview(@PathVariable("id") Long id) {
+    public Review getReview(@PathVariable("id") Long id) {
         var review = reviewService.getReview(id);
-        return ReviewDto.fromReview(review);
+        return review;
+    }
+
+    @GetMapping("{id}/reviews")
+    public List<Review> getReviewsByTipAmsterdamId(@PathVariable("id") Long tipAmsterdamId) {
+        return reviewService.getReviewsByTipAmsterdamId(tipAmsterdamId);
     }
 
     @PostMapping
-    public ReviewDto saveReview(@RequestBody ReviewInputDto dto) {
-        var review = reviewService.saveReview(dto.toReview());
-        return ReviewDto.fromReview(review);
+    public Review saveReview(@RequestBody Review reviewOne) {
+        var review = reviewService.saveReview(reviewOne);
+        return review;
     }
+
+    @PostMapping("savereview")
+    public Review addReview (@RequestBody ReviewRequest reviewRequest){
+        return reviewService.addReview(reviewRequest);
+    }
+
+    @DeleteMapping({"{id}"})
+    public ResponseEntity<Object> deleteReview(@PathVariable("id") Long id) throws IOException {
+        reviewService.deleteReview(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

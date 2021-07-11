@@ -32,7 +32,7 @@ public class TipAmsterdamController {
     }
 
     @GetMapping("{id}/picturePath")
-    public ResponseEntity downloadFile (@PathVariable Long id) {
+    public ResponseEntity downloadFile(@PathVariable("id") Long id) {
         Resource resource = tipAmsterdamService.downloadFile(id);
         String fileName = tipAmsterdamService.getTipAmsterdam(id).getPicturePath();
         String mediaType = "application/octet-stream";
@@ -53,6 +53,14 @@ public class TipAmsterdamController {
         return new ResponseEntity<>(tipAmsterdam, HttpStatus.OK);
     }
 
+    @GetMapping("getSendTips/{username}")
+    public List<TipAmsterdam> getAllSendTips(@PathVariable("username") String username){return tipAmsterdamService.getAllSendTips(username);}
+
+    @GetMapping("getAllTradedTips/{username}")
+    public List<TipAmsterdam> getAllTradedTips(@PathVariable("username") String username){
+        return tipAmsterdamService.getAllTradedTips(username);
+    }
+
     @GetMapping("publicTip")
     public List<Object> getAllPublicTipsAmsterdam() {
         return tipAmsterdamService.getAllPublicTipsAmsterdam();
@@ -68,6 +76,21 @@ public class TipAmsterdamController {
         return tipAmsterdamService.getAllStandardTipsAmsterdam();
     }
 
+    @GetMapping("{username}/privateTip")
+    public List<Object> getAllPrivateTipsByUsername(@PathVariable("username") String username) {
+        return tipAmsterdamService.getAllPrivateTipsAmsterdamByUsername(username);
+    }
+
+    @GetMapping("groupTips/{groupName}")
+    public List<TipAmsterdam> getAllGroupTipsByGroupName (@PathVariable("groupName") String groupName){
+        return tipAmsterdamService.getAllGroupTips(groupName);
+    }
+
+    @GetMapping("{username}/publicTip")
+    public List<Object> getAllPublicTipsByUsername(@PathVariable("username") String username) {
+        return tipAmsterdamService.getAllPublicTipsAmsterdamByUsername(username);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteTipAmsterdamById(@PathVariable("id") Long id) throws IOException {
         String fileName = getTipAmsterdam(id).getPicturePath();
@@ -76,12 +99,21 @@ public class TipAmsterdamController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("addUserAndGetTipById/{username}/{id}")
+    public TipAmsterdam addUserToTipAmsterdam(@PathVariable("username") String username, @PathVariable("id") Long id){
+        return tipAmsterdamService.addUsernameToTipAmsterdam(id, username);
+    }
+
     @PostMapping(value = "/tip_upload")
     public ResponseEntity<Object> addTip(@RequestParam String address,
                                          @RequestParam String explanation,
+                                         @RequestParam String username,
+                                         @RequestParam String groupName,
                                          @RequestParam boolean privateTip,
                                          @RequestParam boolean publicTip,
                                          @RequestParam boolean standardTip,
+                                         @RequestParam boolean sendTip,
+                                         @RequestParam boolean groupTip,
                                          @RequestParam MultipartFile picturePath) {
         try {
             fileStorageService.uploadFile(picturePath);
@@ -92,6 +124,10 @@ public class TipAmsterdamController {
             tipAmsterdam.setPublicTip(publicTip);
             tipAmsterdam.setPrivateTip(privateTip);
             tipAmsterdam.setStandardTip(standardTip);
+            tipAmsterdam.setUsername(username);
+            tipAmsterdam.setSendTip(sendTip);
+            tipAmsterdam.setGroupName(groupName);
+            tipAmsterdam.setGroupTip(groupTip);
             tipAmsterdam.setPicturePath(picturePath.getOriginalFilename());
 
             tipAmsterdamService.addTipAmsterdam(tipAmsterdam);
@@ -102,97 +138,3 @@ public class TipAmsterdamController {
         }
     }
 }
-
-
-
-
-
-
-//    @Autowired
-//    public TipAmsterdamController(TipAmsterdamService tipAmsterdamService, FileStorageServiceImp fileStorageServiceImp) {
-//        this.tipAmsterdamService = tipAmsterdamService;
-//        this.fileStorageServiceImp = fileStorageServiceImp;
-//    }
-
-//    private static final String storageLocation = "/Users/";
-//    String fileName = "IMG_1391.HEIC";
-//
-//    @RequestMapping(value = "/file-upload", method = RequestMethod.POST)
-//    @ResponseBody
-//    public String uploadFileDown(@RequestParam("picturePath") MultipartFile multipartFile) throws IOException {
-//        multipartFile.transferTo(new File(storageLocation + fileName));
-//        return "File successfully uploaded!";
-//    }
-
-//    @PostMapping("/{id}/picturePath")
-//    public void uploadPicturePath(@PathVariable("id") Long id, @RequestParam("picturePath") MultipartFile picturePath)throws IOException {
-//        if (picturePath.getContentType()== null || !picturePath.getContentType().equals("application/pdf")) {
-//            throw new BadRequestExeption();
-//        }
-//        tipAmsterdamService.uploadPicturePath(id, picturePath);
-//    }
-
-//    @GetMapping("/{id}/picturePath")
-//    public ResponseEntity<byte[]> getPicturePath (@PathVariable("id") Long id) {
-//        var picturePathBytes = tipAmsterdamService.getPicturePath(id);
-//
-//        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"image.pdf\"").body(picturePathBytes);
-//    }
-
-
-
-
-
-
-
-
-//      @Autowired
-//    private TipAmsterdamServiceImp tipAmsterdamServiceImp;
-//    private TipAmsterdamRepository tipAmsterdamRepository;
-//
-//    @GetMapping("get_tips")
-//    public ResponseEntity<Object> getAllTipsAmsterdam(){
-//        List<TipAmsterdam> allTipsAmsterdam = this.tipAmsterdamRepository.findAll();
-//        return new ResponseEntity<>(allTipsAmsterdam, HttpStatus.OK);
-//    }
-
-
-
-//    @GetMapping("/get_tips")
-//    public ResponseEntity<Object> getTipsAmsterdam(){ return ResponseEntity.ok().body(tipAmsterdamServiceImp.getTips()); }
-//
-//    @PostMapping("/post_tips")
-//    public ResponseEntity<TipAmsterdam> createTipAmsterdam (@RequestBody TipAmsterdam tipAmsterdam){
-//
-//        return ResponseEntity.ok().body(tipAmsterdamServiceImp.createTipAmsterdam(tipAmsterdam));
-//    }
-//
-//    @DeleteMapping("/delete_tips/{id}")
-//    public ResponseEntity<Map<String, Boolean>> deleteTip(@PathVariable Long id){
-//        return ResponseEntity.ok(tipAmsterdamServiceImp.deleteTip(id));
-//    }
-//
-////    @PostMapping("/image/{id}")
-////    public void uploadImage(@PathVariable("id") Long id, @RequestParam("picturePath") MultipartFile picturePath) throws Exception {
-////        if (picturePath.getContentType() == null || !picturePath.getContentType().equals("application/pdf")) {
-////            throw new BadRequestExeption();
-////        }
-////        tipAmsterdamServiceImp.uploadImage(id, picturePath);
-////    }
-//
-////    @PostMapping("/uploadImage")
-////    public String uploadImage( @RequestParam("picturePath") MultipartFile picturePath) throws Exception {
-////        String returnValue = "";
-////        tipAmsterdamServiceImp.saveImage(picturePath);
-////
-////        return returnValue;
-////    }
-////    public ResponseEntity<Tip> updateTip(@PathVariable Long id, @RequestBody Tip tipDetails) {
-////        Tip tip = tipRepository.findById(id)
-////                .orElseThrow(()-> new RecourceNotFoundException(("Tip bestaat niet onder id: " + id)));
-////
-////        tip.setAddress(tipDetails.getAddress());
-////        tip.setExplanation(tipDetails.getExplanation());
-////        tip.setPrivateTip(tipDetails.get);
-////    }
-//

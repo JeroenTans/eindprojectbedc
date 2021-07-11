@@ -1,8 +1,11 @@
 package com.example.eindprojectbedc.controller;
 
 import com.example.eindprojectbedc.Service.CustomUserDetailsService;
+import com.example.eindprojectbedc.Service.UserServiceImp;
+import com.example.eindprojectbedc.model.User;
 import com.example.eindprojectbedc.payload.AuthenticationRequest;
 import com.example.eindprojectbedc.payload.AuthenticationResponse;
+import com.example.eindprojectbedc.repository.UserRepository;
 import com.example.eindprojectbedc.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +30,12 @@ public class AuthenticatedController {
     private CustomUserDetailsService userDetailsService;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    private UserServiceImp userService;
+
+    @Autowired
     JwtUtil jwtUtl;
 
     @GetMapping(value = "/authenticated")
@@ -39,6 +48,13 @@ public class AuthenticatedController {
 
         String username = authenticationRequest.getUsername();
         String password = authenticationRequest.getPassword();
+        User user = userRepository.getById(username);
+        String authority = user.getAuthority();
+        String groupName = user.getGroupName();
+        AuthenticationResponse authenticationResponse = new AuthenticationResponse();
+        authenticationResponse.setGroupName(groupName);
+        authenticationResponse.setAuthorityRole(authority);
+        authenticationResponse.setUsername(username);
 
         try {
             authenticationManager.authenticate(
@@ -54,6 +70,8 @@ public class AuthenticatedController {
 
         final String jwt = jwtUtl.generateToken(userDetails);
 
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        authenticationResponse.setJwt(jwt);
+
+        return ResponseEntity.ok(new AuthenticationResponse(jwt, username, authority, groupName));
     }
 }

@@ -1,35 +1,56 @@
 package com.example.eindprojectbedc.Service;
 
-import com.example.eindprojectbedc.exception.FileStorageException;
 import com.example.eindprojectbedc.exception.IdNotFoundException;
 import com.example.eindprojectbedc.exception.NotFoundException;
+import com.example.eindprojectbedc.model.Authority;
 import com.example.eindprojectbedc.model.TipAmsterdam;
+import com.example.eindprojectbedc.repository.AuthorityRepository;
 import com.example.eindprojectbedc.repository.TipAmsterdamRepository;
-import org.apache.tomcat.util.file.ConfigurationSource;
+import com.example.eindprojectbedc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 
-import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TipAmsterdamServiceImp implements TipAmsterdamService {
 
+    AuthorityRepository authorityRepository;
+    UserRepository userRepository;
+    private ReviewService reviewService;
     private TipAmsterdamRepository tipAmsterdamRepository;
     Path uploads = Paths.get("./uploads");
-
 
     @Autowired
     public TipAmsterdamServiceImp(TipAmsterdamRepository tipAmsterdamRepository) {
         this.tipAmsterdamRepository = tipAmsterdamRepository;
+    }
+
+    @Override
+    public TipAmsterdam addUsernameToTipAmsterdam(Long id, String username) {
+        if (!tipAmsterdamRepository.existsById(id))throw new NotFoundException();
+        TipAmsterdam tipAmsterdam = tipAmsterdamRepository.getById(id);
+        TipAmsterdam newTipAmsterdam = new TipAmsterdam();
+
+        newTipAmsterdam.setUsername(username);
+        newTipAmsterdam.setStandardTip(tipAmsterdam.isStandardTip());
+        newTipAmsterdam.setPrivateTip(tipAmsterdam.isPrivateTip());
+        newTipAmsterdam.setPublicTip(tipAmsterdam.isPublicTip());
+        newTipAmsterdam.setAddress(tipAmsterdam.getAddress());
+        newTipAmsterdam.setExplanation(tipAmsterdam.getExplanation());
+        newTipAmsterdam.setReceivedTip(true);
+        tipAmsterdam.setSendTip(true);
+        newTipAmsterdam.setPicturePath(tipAmsterdam.getPicturePath());
+
+        return tipAmsterdamRepository.save(newTipAmsterdam);
+
     }
 
     @Override
@@ -39,7 +60,11 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
 
     @Override
     public TipAmsterdam getTipAmsterdam(Long id) {
-        return tipAmsterdamRepository.getById(id);
+//        return tipAmsterdamRepository.getById(id);
+        var optionalTipAmsterdam = tipAmsterdamRepository.findById(id);
+        if (optionalTipAmsterdam.isPresent()) {
+            return optionalTipAmsterdam.get();
+        } else throw new NotFoundException();
     }
 
     @Override
@@ -49,21 +74,24 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         return tipAmsterdam;
     }
 
-//    public Optional<TipAmsterdam> getTwoTipsAmsterdamById(Long idOne, Long idTwo) {
-//        if (!tipAmsterdamRepository.existsById(idOne) && !tipAmsterdamRepository.existsById(idTwo)) throw new NotFoundException();
-//        Optional<TipAmsterdam> twoTipsAmsterdam = tipAmsterdamRepository.findTipAmsterdamByIdAndId(idOne, idTwo);
-//        return twoTipsAmsterdam;
-//    }
-
-
     @Override
     public void deleteTipAmsterdam(Long id) {
         tipAmsterdamRepository.deleteById(id);
     }
 
     @Override
-    public void addTipAmsterdam(TipAmsterdam tipAmsterdam) {
-        tipAmsterdamRepository.save(tipAmsterdam);
+    public TipAmsterdam addTipAmsterdam(TipAmsterdam tipAmsterdam) {
+        return tipAmsterdamRepository.save(tipAmsterdam);
+    }
+
+    @Override
+    public void addTipAmsterdamAdmin(TipAmsterdam tipAmsterdam) {
+        String username = tipAmsterdam.getUsername();
+        Authority userAuthority = new Authority();
+        String authority = String.valueOf(authorityRepository.getAuthorityByUsername(username));
+        if (authority.equals("ADMIN")) {
+            tipAmsterdamRepository.save(tipAmsterdam);
+        }
     }
 
     public Resource downloadFile(Long id) {
@@ -85,6 +113,21 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
             throw new NotFoundException();
         }
         return null;
+    }
+
+    @Override
+    public List<TipAmsterdam> getAllSendTips(String username) {
+        return tipAmsterdamRepository.findTipAmsterdamBySendTipTrueAndUsername(username);
+    }
+
+    @Override
+    public List<TipAmsterdam> getAllGroupTips(String groupName) {
+        return tipAmsterdamRepository.findTipAmsterdamByGroupName(groupName);
+    }
+
+    @Override
+    public List<TipAmsterdam> getAllTradedTips(String username) {
+        return tipAmsterdamRepository.findTipAmsterdamByReceivedTipTrueAndUsername(username);
     }
 
     @Override
@@ -117,76 +160,25 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         return publicTipsAmsterdam;
     }
 
+    @Override
+    public List<Object> getAllPrivateTipsAmsterdamByUsername(String username) {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> privateTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).getUsername().equals(username) && tipAmsterdamList.get(i).isPrivateTip()) privateTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return privateTipsAmsterdam;
+    }
+
+    @Override
+    public List<Object> getAllPublicTipsAmsterdamByUsername(String username) {
+        List<TipAmsterdam> tipAmsterdamList = tipAmsterdamRepository.findAll();
+        List<Object> publicTipsAmsterdam = new ArrayList<>();
+        for (int i = 0; i < tipAmsterdamList.size(); i++) {
+            if (tipAmsterdamList.get(i).getUsername().equals(username) && tipAmsterdamList.get(i).isPublicTip()) publicTipsAmsterdam.add(tipAmsterdamList.get(i));
+        }
+        return publicTipsAmsterdam;
+    }
+
+
 }
-
-//    @Override
-//    public List<TipAmsterdam> getAllPublicTipsAmsterdam() {
-//        List<TipAmsterdam> tipsAmsterdam = tipAmsterdamRepository.findAll();
-//        List<TipAmsterdam> publicTipsAmsterdam = new ArrayList<>();
-//        for (int i = 0; i < tipsAmsterdam.size(); i++) {
-//            if (tipsAmsterdam.get(i).isPublicTip()) return publicTipsAmsterdam[i]=tipsAmsterdam;
-//        }
-//    }
-
-//    @Override
-//    public Optional<TipAmsterdam> getPublicTip(Long id) {
-//        if (!tipAmsterdamRepository.existsById(id)) throw new IdNotFoundException(id);
-//        Optional<TipAmsterdam> tipAmsterdam = tipAmsterdamRepository.findByIsPublicTip();
-//        if (tipAmsterdam.get().isPublicTip()) return tipAmsterdam;
-//        return null;
-//    }
-
-//    @Override
-//    public TipAmsterdam saveTipAmsterdam(TipAmsterdam tipAmsterdam){
-//        return tipAmsterdamRepository.save(tipAmsterdam);
-//    }
-
-
-//    @Override
-//    public void uploadPicturePath(Long id, MultipartFile picturePath) throws IOException {
-//        var optionalTipAmsterdam = tipAmsterdamRepository.findById(id);
-//        if (optionalTipAmsterdam.isPresent()) {
-//            var tipAmsterdam = optionalTipAmsterdam.get();
-//            tipAmsterdam.setPicturePath(picturePath.getBytes());
-//            tipAmsterdamRepository.save(tipAmsterdam);
-//        } else {
-//            throw new NotFoundException();
-//        }
-//    }
-
-//    @Override
-//    public byte[] getPicturePath(Long id) {
-//        var optionalTipAmsterdam = tipAmsterdamRepository.findById(id);
-//        if (optionalTipAmsterdam.isPresent()){
-//            return optionalTipAmsterdam.get().getPicturePath();
-//        } else {
-//            throw new NotFoundException();
-//        }
-//    }
-//}
-
-
-
-
-
-
-
-
-
-//
-//    public Collection<TipAmsterdam> getTips(){ return
-//    tipAmsterdamRepository.findAll(); }
-//
-//    public TipAmsterdam createTipAmsterdam (@RequestBody TipAmsterdam tipAmsterdam){
-//        return tipAmsterdamRepository.save(tipAmsterdam);
-//    }
-//
-//    public Map<String, Boolean> deleteTip(@PathVariable Long id) {
-//        TipAmsterdam tipAmsterdam = tipAmsterdamRepository.findById(id).orElseThrow(()-> new RecourceNotFoundException("Tip bestaat niet onder id: " + id));
-//
-//        tipAmsterdamRepository.delete(tipAmsterdam);
-//        Map<String, Boolean> response = new HashMap<>();
-//        response.put("verwijderd", Boolean.TRUE);
-//        return (Map<String, Boolean>) ResponseEntity.ok(response);
-//    }
-//

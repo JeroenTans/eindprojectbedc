@@ -1,19 +1,17 @@
 package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.exception.NotFoundException;
-import com.example.eindprojectbedc.exception.RecourceNotFoundException;
 import com.example.eindprojectbedc.model.Authority;
 import com.example.eindprojectbedc.model.User;
 import com.example.eindprojectbedc.repository.UserRepository;
 import com.example.eindprojectbedc.utils.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImp implements UserService{
@@ -30,6 +28,11 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
+    public List<User> getUsersByGroupName(String groupName) {
+        return userRepository.findUserByGroupName(groupName);
+    }
+
+    @Override
     public Optional<User> getUser(String username) {
         return userRepository.findById(username);
     }
@@ -40,11 +43,21 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
+    public ResponseEntity<Object> addGroupName(String username) {
+        User user = userRepository.getById(username);
+        user.setGroupName("Tipsy");
+        userRepository.save(user);
+        return null;
+    }
+
+    @Override
     public String createUser(User user) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
         user.setApikey(randomString);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setAuthority("ROLE_ADMIN");
         User newUser = userRepository.save(user);
+
         return newUser.getUsername();
     }
 
@@ -71,8 +84,9 @@ public class UserServiceImp implements UserService{
     @Override
     public void addAuthority(String username, String authority) {
         if (!userRepository.existsById(username)) throw new UsernameNotFoundException(username);
-        User user = userRepository.findById(username).get();
+        User user = userRepository.getById(username);
         user.addAuthority(new Authority(username, authority));
+        user.setAuthority(authority);
         userRepository.save(user);
     }
 

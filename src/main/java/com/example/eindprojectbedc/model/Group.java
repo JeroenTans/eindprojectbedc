@@ -3,6 +3,8 @@ package com.example.eindprojectbedc.model;
 import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "group_members")
@@ -12,15 +14,34 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column
     private String emailAddress;
+
+    @Column
+    private String groupName;
+
+    @OneToMany(
+            targetEntity = com.example.eindprojectbedc.model.User.class,
+            mappedBy = "email",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.EAGER)
+    private Set<User> groupMembers = new HashSet<>();
 
     public Group() {
     }
 
-    public Group(String emailAddress) {
+    public Group(String emailAddress, String groupName) {
         this.emailAddress = emailAddress;
+        this.groupName = groupName;
     }
 
+    public String getGroupName() {
+        return groupName;
+    }
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
     public long getId() {
         return id;
     }

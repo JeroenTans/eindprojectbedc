@@ -2,9 +2,10 @@ package com.example.eindprojectbedc.Service;
 
 import com.example.eindprojectbedc.exception.NotFoundException;
 import com.example.eindprojectbedc.model.Group;
+import com.example.eindprojectbedc.model.User;
 import com.example.eindprojectbedc.repository.GroupRepository;
+import com.example.eindprojectbedc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +14,12 @@ import java.util.List;
 public class GroupServiceImp implements GroupService{
 
     private GroupRepository groupRepository;
+
+    @Autowired
+    UserServiceImp userServiceImp;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Autowired
     public GroupServiceImp(GroupRepository groupRepository) {
@@ -34,6 +41,9 @@ public class GroupServiceImp implements GroupService{
 
     @Override
     public Group saveGroup(Group group) {
+        String username = group.getEmailAddress();
+        User user = userRepository.getById(username);
+        user.setGroupName(group.getGroupName());
         return groupRepository.save(group);
     }
 

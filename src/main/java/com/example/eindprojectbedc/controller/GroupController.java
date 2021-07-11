@@ -1,8 +1,6 @@
 package com.example.eindprojectbedc.controller;
 
 import com.example.eindprojectbedc.Service.GroupService;
-import com.example.eindprojectbedc.controller.dto.GroupDto;
-import com.example.eindprojectbedc.controller.dto.GroupInputDto;
 import com.example.eindprojectbedc.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,9 +30,9 @@ public class GroupController {
     }
 
     @PostMapping
-    public GroupDto saveGroup(@RequestBody GroupInputDto dto) {
-        var group = groupService.saveGroup(dto.toGroup());
-        return GroupDto.fromGroup(group);
+    public Group saveGroup(@RequestBody Group groupOne) {
+        var group = groupService.saveGroup(groupOne);
+        return group;
     }
 
     @DeleteMapping("{id}")
@@ -43,12 +41,3 @@ public class GroupController {
     }
 
 }
-//    public List<GroupDto> getWholeGroup() {
-//        var dtos = new ArrayList<GroupDto>();
-//        var wholeGroup = groupService.getWholeGroup();
-//
-//        for (Group group : wholeGroup) {
-//            dtos.add(GroupDto.fromGroup(group));
-//        }
-//        return dtos;
-//    }
