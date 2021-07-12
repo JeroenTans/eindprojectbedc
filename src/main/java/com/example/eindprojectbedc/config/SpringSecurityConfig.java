@@ -51,7 +51,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/authenticate").permitAll()
-//                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+//                .antMatchers(HttpMethod.DELETE, "/api/v1/tips/**").hasRole("ADMIN")
 //                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
 //                .antMatchers("http://localhost:3000/link").hasRole("ADMIN")
 //                .antMatchers("/api/v1/tips/standardTip_upload").permitAll()
