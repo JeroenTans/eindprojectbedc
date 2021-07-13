@@ -4,7 +4,6 @@ De volgende onderwerpen worden behandeld:
 -   Hoe start ik deze applicatie op
 -   Standaard accounts
 -   Waar staat alles
--   JSN en endpoints
 -   Hoe werkt de applicatie
 
 ##Intro
