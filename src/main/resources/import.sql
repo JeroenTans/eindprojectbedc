@@ -16,6 +16,13 @@ INSERT INTO authorities (username, authority) VALUES ('malou@admin', 'ROLE_ADMIN
 INSERT INTO users (username, password, enabled, authority, group_name) VALUES ('malou@user', '$2y$12$emZ8FwOGZ.LcRjcu/p2BNO9HWZ7XUASUtLl86Xw5gJd2RB3XVCxyO', true, 'ROLE_USER', 'Tipsy');
 INSERT INTO authorities (username, authority) VALUES ('malou@user', 'ROLE_USER');
 
+-- Rein admin & user
+INSERT INTO users (username, password, enabled, authority) VALUES ('rein@admin', '$2y$12$emZ8FwOGZ.LcRjcu/p2BNO9HWZ7XUASUtLl86Xw5gJd2RB3XVCxyO', true, 'ROLE_ADMIN');
+INSERT INTO authorities (username, authority) VALUES ('rein@admin', 'ROLE_ADMIN');
+
+INSERT INTO users (username, password, enabled, authority, group_name) VALUES ('rein@user', '$2y$12$emZ8FwOGZ.LcRjcu/p2BNO9HWZ7XUASUtLl86Xw5gJd2RB3XVCxyO', true, 'ROLE_USER', 'Tipsy');
+INSERT INTO authorities (username, authority) VALUES ('rein@user', 'ROLE_USER');
+
 -- Standard Amsterdam tips & review
 INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1001 ,'Westermarkt 20', 'Anne Frank huis, wie kent dit niet? In het prachtige Jordaan doe je een stap terug in de tijd. Helaas ga je in dit huis een iets donkerdere tijd in..', 'No Group', false, false, false, true, false, false, 'nova@admin', 'annefrank.png');
 
@@ -38,9 +45,13 @@ INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, 
 
 INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1006, 'De Dam', 'Op de dam is komende zaterdag (elke derde zaterdag van januari) een markt waar je gratis je eigen bosje tulpen kan samenstellen! Dit is om de opening van het tulpen seizoen te vieren. De geel met rode tulpen zijn prachtig dit jaar!', 'No Group', false, true, false, false, false, true , 'malou@user', 'tullips.png');
 
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1013, 'Shell toren', 'Op de bovenste verdieping van de Shell toren kan je een schommel vinden! hier zie je een prachtig uitzicht over Amsterdam!', 'No Group', false, true, false, false, false, true , 'rein@user', 'swing.jpg');
+
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1005, 'Museumplein', false, 'Leuke plek om te schaatsen inderdaad! Bedankt!', true);
 
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1006, 'De Dam', false, 'Wauw! ik woon al mijn hele leven in de Jordaan en wist dit niet! Bedankt voor de tip, was ontzettend leuk.', true );
+
+INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1013, 'Shell toren', false, 'Super! Wel een beetje eng hoor!', true );
 
 -- Public tips & review
 INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1007, 'Vondelpark', 'Komende donderdag is hier een optreden van een aantal Reggea artiesten, wees er optijd bij zodat je een goed plekje hebt.', 'No Group', false, false, true , false, false, true , 'nova@user', 'concertvondelpark.png');
