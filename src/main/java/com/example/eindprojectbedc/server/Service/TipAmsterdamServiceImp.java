@@ -41,9 +41,9 @@ public class TipAmsterdamServiceImp implements TipAmsterdamService {
         TipAmsterdam newTipAmsterdam = new TipAmsterdam();
 
         newTipAmsterdam.setUsername(username);
-        newTipAmsterdam.setStandardTip(tipAmsterdam.isStandardTip());
-        newTipAmsterdam.setPrivateTip(tipAmsterdam.isPrivateTip());
-        newTipAmsterdam.setPublicTip(tipAmsterdam.isPublicTip());
+        newTipAmsterdam.setStandardTip(false);
+        newTipAmsterdam.setPrivateTip(false);
+        newTipAmsterdam.setPublicTip(false);
         newTipAmsterdam.setAddress(tipAmsterdam.getAddress());
         newTipAmsterdam.setExplanation(tipAmsterdam.getExplanation());
         newTipAmsterdam.setReceivedTip(true);
