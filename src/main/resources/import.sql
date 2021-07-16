@@ -1,3 +1,4 @@
+
 DELETE FROM users;
 DELETE FROM authorities;
 DELETE FROM tip_amsterdams;
@@ -41,7 +42,7 @@ INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VA
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1004, 'Elandsgracht 150', false, 'Bootjes waren mooi en nieuw, had graag ene plattengrond van de grachten gehad maar het was erg leuk!', true);
 
 -- Prive tips & review
-INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1005, 'Museumplein', 'Ik heb hier heerlijk geschaatst! erg bijzonder, midden op één van de drukste pleintjes in Amsterdam op het ijs! Vergeet geen handschoenen aan te doen. Vrijdag avond word er muziek gedraait en kan je warme chocolademelk bestellen, Veel plezier!', 'No Group', false, true, false, false, false, true , 'nova@user', 'iceskating.png');
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1005, 'Museumplein', 'Ik heb hier heerlijk geschaatst! erg bijzonder, midden op één van de drukste pleintjes in Amsterdam op het ijs! Vergeet geen handschoenen aan te doen. Vrijdag avond word er muziek gedraait en kan je warme chocolademelk bestellen, Veel plezier!', 'No Group', false, true, false, false, false, true , 'nova@user', 'iceskating.jpg');
 
 INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1006, 'De Dam', 'Op de dam is komende zaterdag (elke derde zaterdag van januari) een markt waar je gratis je eigen bosje tulpen kan samenstellen! Dit is om de opening van het tulpen seizoen te vieren. De geel met rode tulpen zijn prachtig dit jaar!', 'No Group', false, true, false, false, false, true , 'malou@user', 'dam.jpg');
 

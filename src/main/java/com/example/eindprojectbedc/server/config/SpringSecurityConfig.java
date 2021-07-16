@@ -46,17 +46,11 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        //JWT token authentication
+        //Authorizatie is op de controllers
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/api/v1/authenticate").permitAll()
-//                .antMatchers(HttpMethod.DELETE, "/api/v1/tips/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-//                .antMatchers("http://localhost:3000/link").hasRole("ADMIN")
-//                .antMatchers("/api/v1/tips/standardTip_upload").permitAll()
-//                .antMatchers(HttpMethod.GET,"/api/v1/tips/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET,"/api/v1/users/**/authorities").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .sessionManagement()

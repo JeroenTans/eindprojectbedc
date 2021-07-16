@@ -5,6 +5,7 @@ import com.example.eindprojectbedc.server.exception.NotFoundException;
 import com.example.eindprojectbedc.server.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -53,10 +54,10 @@ public class UserController {
     }
 
     @PostMapping(value = "/{username}/authorities")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
         try {
             String authorityName = (String) fields.get("authority");
-//            String authorityName = "ROLE_ADMIN";
             userService.addAuthority(username, authorityName);
             return ResponseEntity.noContent().build();
         }
@@ -78,12 +79,14 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{username}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
         userService.deleteUser(username);
         return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping(value = "/{username}/authorities/{authority}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
         userService.removeAuthority(username, authority);
         return ResponseEntity.noContent().build();

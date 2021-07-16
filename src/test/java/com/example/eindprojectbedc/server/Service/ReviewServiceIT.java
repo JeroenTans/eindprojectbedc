@@ -35,7 +35,8 @@ public class ReviewServiceIT {
         review.setComment("erg mooi");
         reviewRepository.save(review);
         List<Review> reviewList = reviewServiceImp.getAllReviews();
-        assertEquals(1, reviewList.size());
+        //ik heb al 15 ingebouwde reviews in mijn import.sql
+        assertEquals(16, reviewList.size());
     }
 
     @Test
@@ -46,7 +47,8 @@ public class ReviewServiceIT {
         review.setComment("erg mooi");
         reviewRepository.save(review);
         List<Review> reviewList = reviewRepository.findAll();
-        assertEquals(1, reviewList.size());
+        //ik heb al 15 ingebouwde reviews in mijn import.sql
+        assertEquals(16, reviewList.size());
     }
 
 }
