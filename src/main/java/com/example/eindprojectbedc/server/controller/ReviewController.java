@@ -5,6 +5,7 @@ import com.example.eindprojectbedc.server.model.Review;
 import com.example.eindprojectbedc.server.request.ReviewRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -45,18 +46,13 @@ public class ReviewController {
         return reviewService.getReviewsByTipAmsterdamId(tipAmsterdamId);
     }
 
-    @PostMapping
-    public Review saveReview(@RequestBody Review reviewOne) {
-        var review = reviewService.saveReview(reviewOne);
-        return review;
-    }
-
     @PostMapping("savereview")
     public Review addReview (@RequestBody ReviewRequest reviewRequest){
         return reviewService.addReview(reviewRequest);
     }
 
     @DeleteMapping({"{id}"})
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> deleteReview(@PathVariable("id") Long id) throws IOException {
         reviewService.deleteReview(id);
         return ResponseEntity.noContent().build();

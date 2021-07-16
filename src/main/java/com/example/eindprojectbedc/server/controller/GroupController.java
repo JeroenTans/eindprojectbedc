@@ -3,6 +3,7 @@ package com.example.eindprojectbedc.server.controller;
 import com.example.eindprojectbedc.server.Service.GroupService;
 import com.example.eindprojectbedc.server.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,6 +37,7 @@ public class GroupController {
     }
 
     @DeleteMapping("{id}")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public void deleteGroupMemberById (@PathVariable Long id) {
         groupService.deleteGroup(id);
     }

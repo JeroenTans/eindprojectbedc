@@ -1,3 +1,4 @@
+
 DELETE FROM users;
 DELETE FROM authorities;
 DELETE FROM tip_amsterdams;
@@ -41,9 +42,9 @@ INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VA
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1004, 'Elandsgracht 150', false, 'Bootjes waren mooi en nieuw, had graag ene plattengrond van de grachten gehad maar het was erg leuk!', true);
 
 -- Prive tips & review
-INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1005, 'Museumplein', 'Ik heb hier heerlijk geschaatst! erg bijzonder, midden op één van de drukste pleintjes in Amsterdam op het ijs! Vergeet geen handschoenen aan te doen. Vrijdag avond word er muziek gedraait en kan je warme chocolademelk bestellen, Veel plezier!', 'No Group', false, true, false, false, false, true , 'nova@user', 'iceskating.png');
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1005, 'Museumplein', 'Ik heb hier heerlijk geschaatst! erg bijzonder, midden op één van de drukste pleintjes in Amsterdam op het ijs! Vergeet geen handschoenen aan te doen. Vrijdag avond word er muziek gedraait en kan je warme chocolademelk bestellen, Veel plezier!', 'No Group', false, true, false, false, false, true , 'nova@user', 'iceskating.jpg');
 
-INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1006, 'De Dam', 'Op de dam is komende zaterdag (elke derde zaterdag van januari) een markt waar je gratis je eigen bosje tulpen kan samenstellen! Dit is om de opening van het tulpen seizoen te vieren. De geel met rode tulpen zijn prachtig dit jaar!', 'No Group', false, true, false, false, false, true , 'malou@user', 'tullips.png');
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1006, 'De Dam', 'Op de dam is komende zaterdag (elke derde zaterdag van januari) een markt waar je gratis je eigen bosje tulpen kan samenstellen! Dit is om de opening van het tulpen seizoen te vieren. De geel met rode tulpen zijn prachtig dit jaar!', 'No Group', false, true, false, false, false, true , 'malou@user', 'dam.jpg');
 
 INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1013, 'Shell toren', 'Op de bovenste verdieping van de Shell toren kan je een schommel vinden! hier zie je een prachtig uitzicht over Amsterdam!', 'No Group', false, true, false, false, false, true , 'rein@user', 'swing.jpg');
 
@@ -54,9 +55,9 @@ INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VA
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1013, 'Shell toren', false, 'Super! Wel een beetje eng hoor!', true );
 
 -- Public tips & review
-INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1007, 'Vondelpark', 'Komende donderdag is hier een optreden van een aantal Reggea artiesten, wees er optijd bij zodat je een goed plekje hebt.', 'No Group', false, false, true , false, false, true , 'nova@user', 'concertvondelpark.png');
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1007, 'Vondelpark', 'Komende donderdag is hier een optreden van een aantal Reggea artiesten, wees er optijd bij zodat je een goed plekje hebt.', 'No Group', false, false, true , false, false, true , 'nova@user', 'concertvondelpark.jpg');
 
-INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1008, 'Scheepsvaartmuseum', 'Komende donderdag word het heerlijk weer, als je even wilt afkoelen maar niet naar het zwembar wilt: Bij het scheepsvaartmuseum kan je heerlijk zwemmen en picknicken. Er is een mooie stijger of als je lekker in het gras wilt zitten kan dat natuurlijk ook!', 'No Group', false, false , true , false, false, true , 'malou@user', 'swim.png');
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1008, 'Scheepsvaartmuseum', 'Komende donderdag word het heerlijk weer, als je even wilt afkoelen maar niet naar het zwembar wilt: Bij het scheepsvaartmuseum kan je heerlijk zwemmen en picknicken. Er is een mooie stijger of als je lekker in het gras wilt zitten kan dat natuurlijk ook!', 'No Group', false, false , true , false, false, true , 'malou@user', 'swim.jpg');
 
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1007, 'Vondelpark', false, 'Was druk maar er hing een gezellige sfeer! De muziek was goed', true);
 
@@ -74,10 +75,16 @@ INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VA
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1010, 'Amsterdam Noord', false, 'Wat een leuke plek zeg!', true );
 
 -- received tips & review
-INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1011, 'Vondelpark', 'Komende donderdag is hier een optreden van een aantal Reggea artiesten, wees er optijd bij zodat je een goed plekje hebt.', 'No Group', false, false, true , false, true , false , 'malou@user', 'concertvondelpark.png');
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1011, 'Vondelpark', 'Komende donderdag is hier een optreden van een aantal Reggea artiesten, wees er optijd bij zodat je een goed plekje hebt.', 'No Group', false, false, false , false, true , false , 'malou@user', 'vondelparktwo.jpg');
 
-INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1012, 'Scheepsvaartmuseum', 'Komende donderdag word het heerlijk weer, als je even wilt afkoelen maar niet naar het zwembar wilt: Bij het scheepsvaartmuseum kan je heerlijk zwemmen en picknicken. Er is een mooie stijger of als je lekker in het gras wilt zitten kan dat natuurlijk ook!', 'No Group', false, false , true , false, true , false , 'nova@user', 'swim.png');
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1012, 'Scheepsvaartmuseum', 'Komende donderdag word het heerlijk weer, als je even wilt afkoelen maar niet naar het zwembar wilt: Bij het scheepsvaartmuseum kan je heerlijk zwemmen en picknicken. Er is een mooie stijger of als je lekker in het gras wilt zitten kan dat natuurlijk ook!', 'No Group', false, false , false , false, true , false , 'nova@user', 'scheepsvaartmuseum.jpg');
+
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1014, 'Jordaan', 'Iedere zaterdag is er een markt in de Jordaan. Er word hier eten verkocht, kleren, kunst, van alles en nog wat. Daarnaast hebben ze de lekkerste poffertjes in town!', 'No Group', false, false, false , false, true , false , 'rein@user', 'saterdaymarked.jpg');
+
+INSERT INTO tip_amsterdams (id, address, explanation, group_name, is_group_tip, is_private_tip, is_public_tip, is_standard_tip, received_tip, send_tip, username, picture_path) VALUES (1015, 'Westerpark', 'Lekker bbqen in het park!!', 'No Group', false, false , true , false, false , true , 'rein@user', 'westerpark.jpg');
 
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1011, 'Vondelpark', false, 'Was druk maar er hing een gezellige sfeer! De muziek was goed', true);
 
 INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1012, 'Scheepsvaartmuseum', false, 'Wat een plek zeg! Als je naast zo n prachtige boot zwemt waan je jezelf bijna in de 17e eeuw. Bedankt!', true );
+
+INSERT INTO reviews (tip_amsterdam_id, address, broken_heart, comment, heart) VALUES (1014, 'Jordaan', false, 'Erg leuke tip en heerlijke poffertjes! bedankt!', true );
