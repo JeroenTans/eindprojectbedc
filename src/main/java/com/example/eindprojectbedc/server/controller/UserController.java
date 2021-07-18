@@ -86,7 +86,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/{username}/authorities/{authority}")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
         userService.removeAuthority(username, authority);
         return ResponseEntity.noContent().build();
